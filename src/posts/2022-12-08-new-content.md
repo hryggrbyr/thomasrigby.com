@@ -1,4 +1,5 @@
 ---
+layout: 'base.html'
 ---
 
 # The Silver Mark
