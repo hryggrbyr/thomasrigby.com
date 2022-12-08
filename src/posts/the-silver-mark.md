@@ -1,6 +1,7 @@
 ---
 layout: base
 Collection: Books
+date: ''
 ---
 
 # The Silver Mark
