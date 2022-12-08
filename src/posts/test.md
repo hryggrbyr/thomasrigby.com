@@ -1,6 +1,7 @@
 ---
 layout: base
 Collection: article
+date: ''
 ---
 
 # **Fetching** `location` **from API**
