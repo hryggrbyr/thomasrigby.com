@@ -1,7 +1,7 @@
 ---
-layout: base
+layout: book
 Collection: Books
-date: ''
+date: '2022-12-08T19:55:30'
 ---
 
 # The Silver Mark
