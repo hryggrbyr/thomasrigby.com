@@ -1,0 +1,23 @@
+---
+title: 'rigby.cx | posts'
+layout: 'base.html'
+---
+
+<section class="spacing">
+  <h2 class="sr-only">All articles</h2>
+
+  <div class="spacing flex layout-even">
+    {% for post in collections.article | reverse %}
+    <article class="card spacing gutters border radius">{{ post.templateContent | safe }}</article>
+    {% endfor %}
+  </div>
+</section>
+<section class="spacing">
+  <h2 class="sr-only">All articles</h2>
+
+  <div class="spacing flex layout-even">
+    {% for post in collections.Books | reverse %}
+      <article class="card spacing gutters border radius">{{ post.templateContent | safe }}</article>
+    {% endfor %}
+  </div>
+</section>

@@ -1,5 +1,5 @@
 ---
-layout: book
+layout: base
 Collection: Books
 date: '2022-12-08T19:55:30'
 ---
