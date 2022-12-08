@@ -1,5 +1,6 @@
 ---
 layout: base
+Collection: article
 ---
 
 # **Fetching** `location` **from API**
