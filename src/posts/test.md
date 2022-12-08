@@ -1,6 +1,12 @@
 ---
 ---
 
+* * *
+
+layout: 'base.html'
+
+* * *
+
 # Fetching `location` from API
 
 ```
