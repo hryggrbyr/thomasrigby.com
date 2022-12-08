@@ -1,13 +1,8 @@
 ---
+layout: base
 ---
 
-* * *
-
-layout: 'base.html'
-
-* * *
-
-# Fetching `location` from API
+# **Fetching** `location` **from API**
 
 ```
   fetch(url, { signal })
