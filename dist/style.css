@@ -43,10 +43,12 @@ img {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.masthead .wrapper {
+.masthead .wrapper,
+.site-footer .wrapper {
   display: flex;
 }
-.masthead *:last-child {
+.masthead *:last-child,
+.site-footer *:last-child {
   margin-inline-start: auto;
 }
 
