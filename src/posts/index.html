@@ -3,32 +3,18 @@ title: 'rigby.cx | posts'
 layout: 'base.html'
 ---
 
-<section class="spacing">
+<section>
   <h2>All Posts</h2>
 
-  <ul class="spacing flex layout-even">
-    {% for post in collections.article | reverse %}
-      <li>
-        <article class="card spacing gutters border radius stack">
-          <h3>{{ post.data.Title | safe }}</h3>
-          <a href="{{ post.url }}">Read</a>
-        </article>
-      </li>
-    {% endfor %}
-  </ul>
-
-</section>
-<section class="spacing">
-  <h2>All Books</h2>
-
-  <ul class="spacing flex layout-even">
+  <ul>
     {% for post in collections.Books | reverse %}
       <li>
-        <article class="card spacing gutters border radius stack">
+        <article>
           <h3>{{ post.data.Title | safe }}</h3>
           <a href="{{ post.url }}">Read</a>
         </article>
       </li>
     {% endfor %}
   </ul>
+
 </section>

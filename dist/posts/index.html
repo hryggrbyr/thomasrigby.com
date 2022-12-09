@@ -9,48 +9,40 @@
 </head>
 <body>
   <header class="masthead">
-    <div class="wrapper spacing-narrow gutters">
-      <div class="flex layout-even">
-        <div><a href="/" class="ft-fc-main ft-wt-stone ft-lh-vast ft-sz-pica">rigby.cx</a></div>
-        <nav class="ft-sz-minion"><a href="/posts">Posts</a></nav>
-      </div>
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/posts">Posts</a>
+      </nav>
     </div>
   </header>
-  <main tabindex="-1" id="main-content" class="wrapper spacing gutters stack">
-<section class="spacing">
-  <h2 class="sr-only">All articles</h2>
+  <main tabindex="-1" id="main-content" class="wrapper">
+    <a id="content"></a>
+    
+      
+<section>
+  <h2>All Posts</h2>
 
-  <div class="spacing flex layout-even">
+  <ul>
     
-    <article class="card spacing gutters border radius"><h1><strong>Fetching</strong> <code>location</code> <strong>from API</strong></h1>
-<pre><code>  fetch(url, { signal })
-  .then(r =&gt; r.json())
-  .then(handleSuccess);
-</code></pre>
-</article>
+      <li>
+        <article>
+          <h3>The Silver Mark</h3>
+          <a href="/posts/the-silver-mark/">Read</a>
+        </article>
+      </li>
     
-    <article class="card spacing gutters border radius"><h1>This is another test page</h1>
-<p>Once upon a time, in a galaxy a long way away, lived a cowardly.lion called Oz.</p>
-</article>
-    
-  </div>
-</section>
-<section class="spacing">
-  <h2 class="sr-only">All articles</h2>
+  </ul>
 
-  <div class="spacing flex layout-even">
-    
-      <article class="card spacing gutters border radius"><h1>The Silver Mark</h1>
-<p>by Sarah Painter</p>
-<p>I really enjoyed this book 😁</p>
-</article>
-    
-  </div>
 </section>
-</main>
-  <footer class="site-footer spacing gutters flex layout-even">
-    <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
-    <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+
+    
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
   </footer>
 </body>
 </html>
