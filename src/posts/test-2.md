@@ -2,6 +2,7 @@
 layout: base
 Collection: article
 date: '2022-12-08T19:50:17'
+Title: This is another test page
 ---
 
 # This is another test page
