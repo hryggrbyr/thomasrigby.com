@@ -4,6 +4,7 @@
   {% endif %}
   <div style="padding: 2em;">
     <h3>{{ post.data.Title | safe }}</h3>
-    <a href="{{ post.url }}">Read</a>
+    <p><cite>{{ post.data.Author }}</cite></p>
+    <a href="{{ post.url }}">Read review</a>
   </div>
 </article>
