@@ -4,17 +4,12 @@ layout: 'base.html'
 ---
 
 <section>
-  <h2>All Posts</h2>
+  <h2>All Books</h2>
 
-  <ul>
+  <div class="card-grid">
     {% for post in collections.Books | reverse %}
-      <li>
-        <article>
-          <h3>{{ post.data.Title | safe }}</h3>
-          <a href="{{ post.url }}">Read</a>
-        </article>
-      </li>
+      {% include 'card.html' %}
     {% endfor %}
-  </ul>
+  </div>
 
 </section>
