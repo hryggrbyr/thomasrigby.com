@@ -6,24 +6,29 @@ layout: 'base.html'
 <section class="spacing">
   <h2>All Posts</h2>
 
-  <div class="spacing flex layout-even">
+  <ul class="spacing flex layout-even">
     {% for post in collections.article | reverse %}
-    <article class="card spacing gutters border radius stack">
-      <h3>{{ post.data.Title }}</h3>
-      <a href="{{ post.url }}">Read</a>
-    </article>
+      <li>
+        <article class="card spacing gutters border radius stack">
+          <h3>{{ post.data.Title | safe }}</h3>
+          <a href="{{ post.url }}">Read</a>
+        </article>
+      </li>
     {% endfor %}
-  </div>
+  </ul>
+
 </section>
 <section class="spacing">
   <h2>All Books</h2>
 
-  <div class="spacing flex layout-even">
+  <ul class="spacing flex layout-even">
     {% for post in collections.Books | reverse %}
-      <article class="card spacing gutters border radius stack">
-      <h3>{{ post.data.Title | safe }}</h3>
-      <a href="{{ post.url }}">Read</a>
-    </article>
+      <li>
+        <article class="card spacing gutters border radius stack">
+          <h3>{{ post.data.Title | safe }}</h3>
+          <a href="{{ post.url }}">Read</a>
+        </article>
+      </li>
     {% endfor %}
-  </div>
+  </ul>
 </section>
