@@ -16,6 +16,9 @@
       </div>
     </div>
   </header>
+{% if post.data.Cover %}
+<img src="{{ post.data.Cover }}" alt="" role="presentation" />
+{% ending %}
   <main tabindex="-1" id="main-content" class="wrapper spacing gutters stack">{% block content %}{{ content | safe }}{% endblock %}</main>
   <footer class="site-footer spacing gutters flex layout-even">
     <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
