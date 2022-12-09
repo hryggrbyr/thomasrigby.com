@@ -10,5 +10,6 @@ Tags:
 - Detective Fiction
 - Magic
 - Books set in England
+Author: Sarah Painter
 ---
 
