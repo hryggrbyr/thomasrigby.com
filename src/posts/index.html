@@ -8,7 +8,10 @@ layout: 'base.html'
 
   <div class="spacing flex layout-even">
     {% for post in collections.article | reverse %}
-    <article class="card spacing gutters border radius">{{ post.templateContent | safe }}</article>
+    <article class="card spacing gutters border radius">
+      {{ post.templateContent | safe }}
+      <a href="">Read</a>
+    </article>
     {% endfor %}
   </div>
 </section>
