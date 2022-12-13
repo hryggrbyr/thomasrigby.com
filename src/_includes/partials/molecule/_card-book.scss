@@ -1,0 +1,11 @@
+.book {
+  --color-background-card: var(--color-smoke);
+  flex-grow: 0;
+
+  >.hero {
+    aspect-ratio: 6/4;
+    background-color: var(--color-background-card);
+    background-image: var(--color-chrome);
+    border-bottom: var(--size-stroke) solid var(--color-border);
+  }
+}

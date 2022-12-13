@@ -1,0 +1,10 @@
+{% if hero.image.credit %}
+  <p><small class="ft-sz-minion">
+  Cover image courtesy of
+  {% if hero.image.credit.url %}
+    <a class="text-link" href="{{ hero.image.credit.url }}" title="{{ hero.image.credit.url }}">{{ hero.image.credit.name }}</a>.
+  {% else %}
+    {{ hero.image.credit.name }}.
+  {% endif %}
+  </small></p>
+{% endif %}

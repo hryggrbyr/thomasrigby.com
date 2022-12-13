@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inclusive Design is more important than Accessibility</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>We tend to think of accessibility as being something we add to websites to help the disabled. This is a mindset we need to get out of. The principles of accessibility help <em>everyone</em> and, as such, should be a foundation we build our applications on - not something added as an afterthought.</p>
+<blockquote>
+<p>“Accessibility is not hard, it’s only a pain-in-the-neck if you wait til the very end to do it.”</p>
+<p><cite><a href="https://twitter.com/SaraSoueidan">@SaraSoueidan</a></cite></p>
+</blockquote>
+<img srcset="/images/GfxTgP2zru-300.webp 300w,/images/GfxTgP2zru-300.jpeg 300w" sizes="(max-width: 300px) 300px" src="/images/GfxTgP2zru-300.jpeg" loading="lazy" decoding="async" alt="Drake Hotline Bling meme. Accessibility is tired, Inclusive design is wired." width="300" height="300" style="aspect-ratio: 300/300">
+<h2>Door handles vs Door knobs</h2>
+<p>Imagine our users could be in one of four states: permanently disabled, temporarily disabled, contextually disabled, or abled.</p>
+<p>For example,</p>
+<ul>
+<li>I have arthritis (Permanently disabled)</li>
+<li>I have a broken wrist and am wearing a cast (Temporarily disabled)</li>
+<li>I am carrying several heavy shopping bags (Contextually disabled)</li>
+<li>None of the above</li>
+</ul>
+<figure>
+  <img srcset="/images/-KrEAT5MpW-300.webp 300w,/images/-KrEAT5MpW-600.webp 600w,/images/-KrEAT5MpW-900.webp 900w,/images/-KrEAT5MpW-1200.webp 1200w,/images/-KrEAT5MpW-1500.webp 1500w,/images/-KrEAT5MpW-300.jpeg 300w,/images/-KrEAT5MpW-600.jpeg 600w,/images/-KrEAT5MpW-900.jpeg 900w,/images/-KrEAT5MpW-1200.jpeg 1200w,/images/-KrEAT5MpW-1500.jpeg 1500w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px,(max-width: 1500px) 1500px" src="/images/-KrEAT5MpW-300.jpeg" loading="lazy" decoding="async" alt="Door knob" width="1500" height="1004" style="aspect-ratio: 300/200">
+  <figcaption>A door with a door knob</figcaption>
+</figure>
+<p>I arrive home and this is my front door.</p>
+<p>In the first two cases, this door knob is largely impossible to use. Even for a contextually disabled person, it is harder to use - they may have to put their bags down to operate the knob for example.</p>
+<figure>
+  <img srcset="/images/mBXlTlFRDU-300.webp 300w,/images/mBXlTlFRDU-600.webp 600w,/images/mBXlTlFRDU-900.webp 900w,/images/mBXlTlFRDU-1200.webp 1200w,/images/mBXlTlFRDU-1500.webp 1500w,/images/mBXlTlFRDU-300.jpeg 300w,/images/mBXlTlFRDU-600.jpeg 600w,/images/mBXlTlFRDU-900.jpeg 900w,/images/mBXlTlFRDU-1200.jpeg 1200w,/images/mBXlTlFRDU-1500.jpeg 1500w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px,(max-width: 1500px) 1500px" src="/images/mBXlTlFRDU-300.jpeg" loading="lazy" decoding="async" alt="A door with a handle" width="1500" height="946" style="aspect-ratio: 300/189">
+  <figcaption>A door with a handle</figcaption>
+</figure>
+<p>Alternatively, a door handle can be operated with an elbow or a hand or a foot or a <a href="https://www.youtube.com/watch?v=vFOh6vg0EMM">cat</a>. It requires less motor control and directly benefits the people in the first three scenarios and, importantly, <strong>does not</strong> inconvenience anyone in the fourth category.</p>
+<p>With all other things being equal, why would you not opt for a handle?</p>
+<h3>How does this apply to websites?</h3>
+<p>Digressing briefly, <a href="https://en.wikipedia.org/wiki/Presbyopia">Presbyopia</a> is a natural ageing of the eyes caused by the hardening of the lens of the eye resulting in a “progressively worsening ability to focus clearly on close objects”. It affects things like being able to read small print, headaches and eyestrain when reading for long periods, and blurred vision. It will happen to us all eventually.</p>
+<p>In addition to this, the muscles we use to control our pupil size will weaken as we age which results in becoming less responsive to changes in ambient lighting. The average 60 year old needs <strong>three times</strong> more ambient lighting for comfortable reading than a 20 year old.</p>
+<p>Also as we age, the cells in our retinas responsible for normal colour vision decline in sensitivity causing colours to become less bright and the contrast between different colours to be less noticeable.</p>
+<p>We are used to thinking that ensuring sufficient contrast of our website’s text and using icons as well as colour for error states is for the <a href="http://www.colourblindawareness.org/colour-blindness/">4.5% of the UK population</a> that are colour-blind, but it really isn’t. It’s for the <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/articles/overviewoftheukpopulation/july2017">18% of the UK population</a> that are over 65 and the ever-changing percentage of people in the UK trying to access our content on a fingerprint-y laptop in bright sunshine.</p>
+<figure>
+  <img srcset="/images/mFfUJqzgNq-300.webp 300w,/images/mFfUJqzgNq-600.webp 600w,/images/mFfUJqzgNq-900.webp 900w,/images/mFfUJqzgNq-1200.webp 1200w,/images/mFfUJqzgNq-1500.webp 1500w,/images/mFfUJqzgNq-300.jpeg 300w,/images/mFfUJqzgNq-600.jpeg 600w,/images/mFfUJqzgNq-900.jpeg 900w,/images/mFfUJqzgNq-1200.jpeg 1200w,/images/mFfUJqzgNq-1500.jpeg 1500w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px,(max-width: 1500px) 1500px" src="/images/mFfUJqzgNq-300.jpeg" loading="lazy" decoding="async" alt="A laptop screen demonstrating the difficulty one might have viewing a website in direct sunlight. The screen is also covered in fingerprint smudges." width="1500" height="1125" style="aspect-ratio: 300/225">
+  <figcaption>
+    It’s not even a touchscreen!
+  </figcaption>
+</figure>
+<p>So, using our criteria from before along with this information as an example, we could have;</p>
+<ul>
+<li>I have been blind since birth (Permanently disabled)</li>
+<li>I have recently had cataract surgery and my vision is diminished (Temporarily disabled)</li>
+<li>I am in a park on a sunny summer’s day (Contextually disabled)</li>
+<li>None of the above</li>
+</ul>
+<figure>
+  <img srcset="/images/vz1qywFIv9-300.webp 300w,/images/vz1qywFIv9-600.webp 600w,/images/vz1qywFIv9-900.webp 900w,/images/vz1qywFIv9-1200.webp 1200w,/images/vz1qywFIv9-1500.webp 1500w,/images/vz1qywFIv9-300.jpeg 300w,/images/vz1qywFIv9-600.jpeg 600w,/images/vz1qywFIv9-900.jpeg 900w,/images/vz1qywFIv9-1200.jpeg 1200w,/images/vz1qywFIv9-1500.jpeg 1500w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px,(max-width: 1500px) 1500px" src="/images/vz1qywFIv9-300.jpeg" loading="lazy" decoding="async" alt="" width="1500" height="270" style="aspect-ratio: 300/54">
+  <figcaption>
+    An example of bad web design
+  </figcaption>
+</figure>
+<p>In this example, we see a few red flags.</p>
+<p>Though it may be perfectly readable for some, the pale light-weight font on a white background renders it unreadable for others.</p>
+<p>The size of the smaller text beneath the title is also likely to cause issues - don’t forget that we’re also talking about decreasing degrees of visual acuity from age 20 and up in people with no other visual disabilities.</p>
+<p>Even on the assumption that this has been built using semantic HTML and has all of the requisite code to make it accessible to screen-readers, we’re still only helping those people <em>actually using screen-readers</em>. Someone who, for example, has been blind from birth may well be using a screen-reader but it is highly unlikely our person recovering from cataract surgery or our able-bodied person in a park will be.</p>
+<figure>
+  <img srcset="/images/g3fC-81x2z-300.webp 300w,/images/g3fC-81x2z-600.webp 600w,/images/g3fC-81x2z-900.webp 900w,/images/g3fC-81x2z-1200.webp 1200w,/images/g3fC-81x2z-1500.webp 1500w,/images/g3fC-81x2z-300.jpeg 300w,/images/g3fC-81x2z-600.jpeg 600w,/images/g3fC-81x2z-900.jpeg 900w,/images/g3fC-81x2z-1200.jpeg 1200w,/images/g3fC-81x2z-1500.jpeg 1500w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px,(max-width: 1500px) 1500px" src="/images/g3fC-81x2z-300.jpeg" loading="lazy" decoding="async" alt="" width="1500" height="350" style="aspect-ratio: 300/70">
+  <figcaption>An example of more inclusive web design</figcaption>
+</figure>
+<p>Increasing the font size of the body copy and using a darker shade of grey that adheres to the <a href="https://webaim.org/resources/contrastchecker/">WCAG Guidelines for contrast</a> helps everyone and hinders no-one.</p>
+<p>To take this further;</p>
+<ul>
+<li>I have Parkinson’s Disease (Permanently disabled)</li>
+<li>I have a migraine (Temporarily disabled)</li>
+<li>I am on a busy tram (Contextually disabled)</li>
+<li>None of the above</li>
+</ul>
+<figure>
+  <img srcset="/images/ViBS7vnOEL-300.webp 300w,/images/ViBS7vnOEL-600.webp 600w,/images/ViBS7vnOEL-900.webp 900w,/images/ViBS7vnOEL-1200.webp 1200w,/images/ViBS7vnOEL-1500.webp 1500w,/images/ViBS7vnOEL-300.jpeg 300w,/images/ViBS7vnOEL-600.jpeg 600w,/images/ViBS7vnOEL-900.jpeg 900w,/images/ViBS7vnOEL-1200.jpeg 1200w,/images/ViBS7vnOEL-1500.jpeg 1500w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px,(max-width: 1500px) 1500px" src="/images/ViBS7vnOEL-300.jpeg" loading="lazy" decoding="async" alt="" width="1500" height="252" style="aspect-ratio: 300/50">
+  <figcaption>An example of poor buttons</figcaption>
+</figure>
+<p>Here is another example of something we could see on a typical website. For anyone in our three “disabled” groups, the small hit areas in these buttons could result in disaster!</p>
+<figure>
+  <img srcset="/images/5v0nxE0oe3-300.webp 300w,/images/5v0nxE0oe3-600.webp 600w,/images/5v0nxE0oe3-900.webp 900w,/images/5v0nxE0oe3-1200.webp 1200w,/images/5v0nxE0oe3-1500.webp 1500w,/images/5v0nxE0oe3-300.jpeg 300w,/images/5v0nxE0oe3-600.jpeg 600w,/images/5v0nxE0oe3-900.jpeg 900w,/images/5v0nxE0oe3-1200.jpeg 1200w,/images/5v0nxE0oe3-1500.jpeg 1500w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px,(max-width: 1500px) 1500px" src="/images/5v0nxE0oe3-300.jpeg" loading="lazy" decoding="async" alt="" width="1500" height="340" style="aspect-ratio: 300/68">
+  <figcaption>An example of more inclusive buttons</figcaption>
+</figure>
+<p>By making the buttons larger and further apart, we are helping people with motor-control issues, people operating the site through teary eyes while sneezing, people being elbowed mercilessly by fellow commuters, <em>and</em> our able-bodied user. In this regard, at least, size <em>is</em> everything! 😏</p>
+<p>If you are looking for numbers, the <a href="http://web.mit.edu/">Massachusetts Institute of Technology (MIT)</a> conducted a study into the Mechanics of Tactile Sense concluding the average human thumb is the equivalent of 45px to 78px. So make your hit areas at least that big! 😄</p>
+<p>By not considering external factors, such as situational usage of our website, we can inadvertently create a terrible experience for everyone.</p>
+<h2>Other kinds of contextual disability</h2>
+<p>As Chris LaCroix explains in <a href="https://www.captechconsulting.com/blogs/panic-room-usability-testing-in-stressful-situations">Panic Room!</a>, the real world is vastly different to a sterile testing environment - full of noises and distractions that can make using a poorly designed application impossible for anyone.</p>
+<p>Imagine you are at the train station and your train has been cancelled (thanks, <a href="http://northernfailapp.co.uk/">Northern Rail</a>!). You have to find the next train to your destination on the app as quickly as possible.</p>
+<p>Are you happy about the loading spinner? Are you squinting to read the small text? Is even the large text hard to read in the sunshine? Are you constantly distracted by Tannoy announcements or other passengers jostling on the platform? Are those delightful animated page transitions helping you find the next train?</p>
+<p>CNN have a “<a href="https://lite.cnn.io/en">lite version</a>” of their main website. It was released to help people with crappy internet connections get access to breaking news - such as the people who, at the time, were about to be hit by Hurricane Irma.</p>
+<p>Now, I’m not saying we need to implement a “text-only” version of every website we make but we can learn from it.</p>
+<h3>Why should we bother with any of this?</h3>
+<p>A part of our development process includes “cross-browser testing” to ensure there is a working experience for users on Chrome, Firefox, Edge, etc. Earlier I mentioned that 4.5% of the UK’s population is colour-blind. According to <a href="http://gs.statcounter.com/browser-market-share/desktop/united-kingdom/#yearly-2018-2019-bar">StatCounter</a>, that is half as many people as use either Microsoft Edge or Safari. At 18%, over 65s in the United Kingdom count for more people than any browser users other than Google Chrome.</p>
+<figure>
+  <img srcset="/images/HBkbgt8SVS-300.webp 300w,/images/HBkbgt8SVS-600.webp 600w,/images/HBkbgt8SVS-900.webp 900w,/images/HBkbgt8SVS-1200.webp 1200w,/images/HBkbgt8SVS-300.jpeg 300w,/images/HBkbgt8SVS-600.jpeg 600w,/images/HBkbgt8SVS-900.jpeg 900w,/images/HBkbgt8SVS-1200.jpeg 1200w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px,(max-width: 900px) 900px,(max-width: 1200px) 1200px" src="/images/HBkbgt8SVS-300.jpeg" loading="lazy" decoding="async" alt="" width="1200" height="675" style="aspect-ratio: 300/168">
+  <figcaption>StatCounter Global Stats - Browser Market Share Great Britain 2018-2019</figcaption>
+</figure>
+<p>The conclusion seems simple; if you’re going to ensure the experience is suitable for Safari users, why are you not ensuring the experience is suitable for people with diminished vision?</p>
+<h3>Eyes and ears and mouth and nose: It’s not just visual design</h3>
+<p>I’ve spent a bit of time talking about visual impairment in this article, but the same principles hold true for impairments to the other senses.</p>
+<p>For example, thinking of hearing impairment, similar situations arise. There are various reasons for watching video content with the volume down;</p>
+<ul>
+<li>deaf from birth (Permanently disabled)</li>
+<li>a bout of tinnitus (Temporarily disabled)</li>
+<li>a sleeping baby in a nearby room, partner asleep in the same bed, on a train with no headphones (Contextually disabled).</li>
+</ul>
+<p>Irrespective of “demographic data” or the “prevalence of deafness in the target market”, doesn’t it make sense to provide quality subtitles with every piece of video content?</p>
+<h2>It’s not all sunshine and rainbows</h2>
+<p>Inclusive design and making a website accessible to anyone is a difficult thing to do. There are certainly situations where using a pattern to assist a specific group <em>could</em> negatively impact a different group and it may take time and a trial-and-error approach to find a half-way-house solution that caters for as many people as possible.</p>
+<p>Similarly, given deadlines and budgets, taking the time to solve all of these problems adequately may be out of the question.</p>
+<p>However, starting with some solid principles as a base, and validating any deviations with actual users, can get us closer to Accessibility Nirvana™️ quickly and cost-effectively.</p>
+<h2>Conclusion</h2>
+<p>Not to be too down on designers but no-one goes to a website to marvel at the design - they come to absorb the content. That content <strong>needs</strong> to be accessible.</p>
+<p>If we are saying “this website can be used by <em><strong>anyone</strong></em>” then we need to determine if there are any barriers to the content.</p>
+<ul>
+<li><strong>Can I find the content?</strong>
+<ul>
+<li>Search engine optimisation</li>
+<li>Information hierarchy
+<ul>
+<li>Categorisation of content leading to clear and intuitive navigation</li>
+<li>Clear structure of page/post copy</li>
+</ul>
+</li>
+<li>Semantic markup</li>
+<li>Schema data</li>
+<li><a href="https://www.dummies.com/web-design-development/search-engine-optimization/name-your-web-site-files-for-better-seo-results/">Human-readable filenames</a> can also help with SEO</li>
+</ul>
+</li>
+<li><strong>Can I use the website?</strong>
+<ul>
+<li>Performance</li>
+<li>Alt text on images</li>
+<li>Videos have subtitles and/or transcripts</li>
+<li>Videos can be played/paused/muted/volume-controlled/full-screen</li>
+<li>Audio tracks have subtitles and/or transcripts</li>
+<li>Reduced cognitive load</li>
+<li>The option of customising the colour scheme (Light/Dark mode) to make the site easier to use. The <a href="https://secure.manchester.gov.uk/accessibility/settings">Manchester City Council accessibility</a> settings are probably a little too extreme for the average website but well worth a look.</li>
+<li>Affordance of interaction - do buttons do what I expect them to do?</li>
+</ul>
+</li>
+<li><strong>Is the content readable?</strong>
+<ul>
+<li>Comfortable font size</li>
+<li>Comfortable line length</li>
+<li>Adequate reading level</li>
+<li>Comfortable contrast</li>
+<li>Comfortable negative space</li>
+</ul>
+</li>
+</ul>
+<p>There is no magic bullet or “one size fits all” solution to the problem of allowing your website to be accessible to anyone - this whole area is hard and riddled with contradictions but if we consider these points for all of our websites, we will build better websites that people can find and use and benefit from.</p>
+<p>“Accessibility”, as we are used to thinking about it - making sure we have alt text on images for users of screen-readers, is only a part of the solution. The rest is not the job of A11y but the job of <em>Inclusive Design</em>.</p>
+<h2>Further reading</h2>
+<p>There’s a <strong>lot</strong> of <a href="https://www.c-sharpcorner.com/article/how-much-data-is-on-the-internet/">stuff on the internet</a> and a lot of stuff about <a href="https://www.bing.com/search?q=a11y+best+practice&amp;qs=n&amp;form=QBRE&amp;sp=-1&amp;pq=a11y+bes&amp;sc=0-8&amp;sk=&amp;cvid=54E033F9EE6C4F37979BA42239CB25DF">“A11y Best Practice” (~40 million results)</a>. I have cut through the noise for you and curated a few articles for further reading.</p>
+<ul>
+<li><a href="https://blog.marvelapp.com/body-text-small/"><strong>Marvel</strong>: Your Body Text Is Too Small</a></li>
+<li><a href="https://medium.com/envoy-design/how-to-design-an-accessible-color-scheme-4a13ca12c92b"><strong>Envoy Design</strong>: How to design an accessible color scheme</a></li>
+<li><a href="https://webaim.org/resources/designers/"><strong>WebAIM</strong>: Web Accessibility for Designers</a></li>
+<li><a href="https://a11yproject.com/"><strong>The A11y Project</strong>: Basically anything on the site…</a></li>
+<li><a href="https://www.smashingmagazine.com/2018/12/voiceover-screen-reader-web-apps/"><strong>Chris Ashton</strong>: I Used The Web For A Day Using A Screen Reader</a></li>
+<li><a href="https://accessibility.blog.gov.uk/"><strong>UK Government</strong>: Accessibility blog</a></li>
+<li><a href="https://design-system.service.gov.uk/"><strong>UK Government</strong>: Design system</a></li>
+<li><a href="https://github.com/bbc/bbc-a11y"><strong>BBC</strong>: BBC Accessibility Standards Checker</a></li>
+<li><a href="https://www.wikihow.com/Write-Successfully-for-the-Web"><strong>WikiHow</strong>: How to Write Successfully for the Web</a></li>
+<li><a href="https://www.lifewire.com/why-use-semantic-html-3468271"><strong>Lifewire</strong>: Why Use Semantic HTML?</a></li>
+<li><a href="http://www.heydonworks.com/"><strong>Heydon Pickering</strong>: Anything by Heydon Pickering</a></li>
+<li><a href="https://www.smashingmagazine.com/2014/09/balancing-line-length-font-size-responsive-web-design/"><strong>Laura Franz</strong>: Size Matters: Balancing Line Length And Font Size In Responsive Web Design</a></li>
+</ul>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.fin {
+  --metric-fin-gap: 1rem;
+  margin: 5vh auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-gap: 2ch;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 80%;
+
+  &::before,
+  &::after {
+    content: '';
+    height: 0.125rem;
+    background: var(--color-rainbow);
+    transform: translateY(-0.1em);
+  }
+
+  &>* {
+    @extend .ft-fc-accent;
+    text-transform: uppercase;
+    max-width: 35ch;
+  }
+}

@@ -1,0 +1,34 @@
+.site-footer {
+  content-visibility: auto;
+  background-color: var(--color-smoke);
+  color: var(--color-foreground);
+  font-size: var(--size-minion);
+  position: relative;
+  z-index: 10;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    background: var(--color-rainbow, #ffffff);
+    height: 0.5rem;
+  }
+}
+
+.navigation.footer ul {
+  width: 100%;
+}
+
+.navigation.footer ul li {
+  display: inline-block;
+}
+
+.navigation.footer ul li + li {
+  margin-left: 2ch;
+}
+
+.navigation.footer ul li a {
+  text-decoration: underline;
+}

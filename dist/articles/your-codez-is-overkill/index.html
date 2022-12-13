@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your codez is overkill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>Once upon a time, I encountered a bug.</p>
+<p>The implementation was for a &quot;View PDF&quot; button: when the user clicks the button, a PDF opens in a new browser tab.</p>
+<h2>The problem</h2>
+<p>The code looked a bit like this…</p>
+<pre class="language-jsx " style="counter-reset: linenumber 0"><code class="language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">downloadDocument</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">document</span><span class="token punctuation">)</span> <span class="token operator">=></span>
+  <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> axios<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>
+      <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">ENDPOINT</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>document<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">headers</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token string-property property">'Content-Type'</span><span class="token operator">:</span> <span class="token string">'application/json'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">Authorization</span><span class="token operator">:</span> <span class="token constant">AUTH_TOKEN</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>
+      status<span class="token punctuation">,</span>
+      statusText<span class="token punctuation">,</span>
+      data
+    <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">!==</span> <span class="token number">200</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>statusText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> jwt<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>response<span class="token punctuation">.</span>responseStatus <span class="token operator">!==</span> <span class="token number">200</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>
+          response<span class="token punctuation">.</span>errors <span class="token operator">?</span>
+          response<span class="token punctuation">.</span>errors<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>message <span class="token operator">:</span>
+          response<span class="token punctuation">.</span>responseMessage
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token function">resolve</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token number">401</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">error</span><span class="token operator">:</span> error<span class="token punctuation">.</span>message<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">webDownload</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token function">downloadDocument</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>response <span class="token operator">||</span> response<span class="token punctuation">.</span>responseStatus <span class="token operator">!==</span> <span class="token number">200</span><span class="token punctuation">)</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">const</span> <span class="token punctuation">{</span>
+        href
+      <span class="token punctuation">}</span> <span class="token operator">=</span> response<span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>href<span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">"No file"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      window<span class="token punctuation">.</span>location <span class="token operator">=</span> href<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token function">appDispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">"APP_ERROR"</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">error</span><span class="token operator">:</span> <span class="token string">"Failed to access the file"</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+  <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span>
+  <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>webDownload<span class="token punctuation">}</span></span>
+  <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span>
+<span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Icon</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file-download<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+</code></pre>
+<h2>The solution</h2>
+<p>The actual solution I eventually used was to fix the <code>window.location = href</code> line.</p>
+<p>It worked but, later that day, I started thinking that the <q>correct</q> answer would be…</p>
+<blockquote>
+<p>Use a link!</p>
+</blockquote>
+<p>If the criteria are: <em>I click a button and the PDF opens in a new tab</em>.</p>
+<p>Then the only code needed is;</p>
+<pre class="language-html " style="counter-reset: linenumber 0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> 
+  <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span>
+  <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/path/to/file.pdf<span class="token punctuation">"</span></span>
+  <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>View file.pdf<span class="token punctuation">"</span></span>
+  <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span>
+  <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nofollow noopener noreferrer<span class="token punctuation">"</span></span>
+<span class="token punctuation">></span></span>
+  View pdf
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+</code></pre>
+<h2>Conclusion</h2>
+<p>Sometimes codebases are quagmires of over-engineered code that blinker us to the best solution.</p>
+<p>It was all too easy to dive into that convoluted code to find the bug - and it was tricky to figure out what was causing the issue because there was so much code to read.</p>
+<p>There's nothing really wrong with the code as it is — it handles errors, authenticates requests, JWT encodes traffic, abstracts the download function so it can be used elsewhere; it's just overkill for <em>I click a button and the PDF opens in a new tab</em>.</p>
+<blockquote>
+<p>There are no bugs in the code you didn't write.</p>
+</blockquote>
+<p>PS: Whatever you do, try to avoid this… 🤣</p>
+<img srcset="/images/BjngFZg5ym-300.webp 300w,/images/BjngFZg5ym-600.webp 600w,/images/BjngFZg5ym-300.jpeg 300w,/images/BjngFZg5ym-600.jpeg 600w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px" src="/images/BjngFZg5ym-300.jpeg" loading="lazy" decoding="async" alt="A JavaScript function that essentially does nothing" width="600" height="551" style="aspect-ratio: 300/275">
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.bio {
+  >.flex {
+    >*:first-of-type {
+      min-width: 15rem;
+      flex-shrink: 1;
+    }
+    >*:last-of-type {
+      min-width: 50%;
+      flex-shrink: 1;
+    }
+  }
+}

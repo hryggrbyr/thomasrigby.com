@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre- and Post- NPM Scripts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>I've been working on a project at work recently that takes data from a CMS, builds into a React app, and bundles into an iOS app using CapacitorJS</p>
+<pre class="language-json " style="counter-reset: linenumber 0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"react-scripts build"</span><span class="token punctuation">,</span>
+    <span class="token property">"harvest"</span><span class="token operator">:</span> <span class="token string">"node harvest.js"</span><span class="token punctuation">,</span>
+    <span class="token property">"copy"</span><span class="token operator">:</span> <span class="token string">"npx cap copy ios"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>It would be tedious to keep running <code>npm run harvest &amp;&amp; npm run build &amp;&amp; npm run copy</code> every single time.</p>
+<p>I guess I could make a special case build script…</p>
+<pre class="language-json " style="counter-reset: linenumber 0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"build:ios"</span><span class="token operator">:</span> <span class="token string">"npm run harvest &amp;&amp; npm run build &amp;&amp; npm run copy"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>I'm not a fan of long chains of commands and, it turns out, neither are NPM.</p>
+<h2>Introducing <code>pre</code> and <code>post</code>!</h2>
+<pre class="language-json " style="counter-reset: linenumber 0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"prebuild"</span><span class="token operator">:</span> <span class="token string">"npm run harvest"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"react-scripts build"</span><span class="token punctuation">,</span>
+    <span class="token property">"postbuild"</span><span class="token operator">:</span> <span class="token string">"npm run copy"</span><span class="token punctuation">,</span>
+    <span class="token property">"harvest"</span><span class="token operator">:</span> <span class="token string">"node harvest.js"</span><span class="token punctuation">,</span>
+    <span class="token property">"copy"</span><span class="token operator">:</span> <span class="token string">"npx cap copy ios"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>These suffixes can be added to any NPM script and will run automatically when you run the main script.</p>
+<p>Now, whenever I <code>npm run build</code>, I get <code>npm run harvest</code> and <code>npm run copy</code> <strong>for free!</strong></p>
+<p>It saves my fingers, it stops me forgetting to copy my build folder to iOS, and it satisfies my compulsion for short, neat lines.</p>
+<p>What could you do with this?</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<ul class="menu">
+  {% for item in items %}
+    <li>
+      <a
+        class="{{item.classes}}"
+        data-active="{{true if item.href === page.url else false}}"
+        href="{{item.href | url}}"
+        title="{{item.title or item.text}}"
+        {% if item.external %}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+        {% endif %}
+      >{{ item.text | safe }}</a>
+      {% if item.children %}
+        {% set items = item.children %}
+        {% include 'partials/navigation/menu.html' %}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

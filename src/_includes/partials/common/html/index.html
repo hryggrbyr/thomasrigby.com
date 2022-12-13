@@ -1,0 +1,13 @@
+<title data-helmet>{% if title != context.site.name %}{{ title | safe }} | {% endif %}{{context.site.name}}</title>
+
+{% if description %}
+  <meta name="description" content="{{ description }}" data-helmet/>
+{% endif %}
+
+{% include 'partials/common/html/meta.html' %}
+{% include 'partials/common/html/styles.html' %}
+{% include 'partials/common/html/seo.html' %}
+{% include 'partials/common/html/schema.html' %}
+{% include 'partials/common/html/favicons.html' %}
+
+<link rel="manifest" href="/site.webmanifest" />

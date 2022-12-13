@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semantic HTML</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>Semantic HTML is the process of using HTML5 tags to reinforce the meaning of the information contained within a webpage or application.</p>
+<p><a href="https://en.wikipedia.org/wiki/HTML5">HTML5</a> was introduced in October 2014 and introduced several new element tags to provide <em>explicit</em> meaning to the content of a website. And, as all websites are <em>nothing more</em> than a means for conveying content, this is the most important foundation for any site.</p>
+<p>Bluntly, semantic HTML says what an element is instead of using a <code>&lt;div&gt;</code> for everything.</p>
+<h2>Div Soup™️</h2>
+<p>Consider this piece of code…</p>
+<pre class="language-jsx " style="counter-reset: linenumber 0"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>article<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+	</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>image<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>image<span class="token punctuation">.</span>src<span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+	</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
+	</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>excerpt<span class="token punctuation">}</span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>categories<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">category</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>category-tag<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>category<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>While this is not an unacceptable way of using markup to describe a group of elements, it could also be confusing for a number of reasons.</p>
+<p>We spend considerably more time reading code than writing it. A lot of us do not have the luxury of solely working with familiar code; we work in teams with several developers working on the same codebase or in agencies working with multiple codebases - some a lot older or less maintained.</p>
+<p>While we read, much like users on a webpage do, we use an <a href="https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/">F pattern</a>. This means we’re basically scanning down the left-hand edge of the code to get a gist of what we’re dealing with.</p>
+<p>The code above reads very much like “div, img, h1, div, div, div…”</p>
+<h2>Semantic markup</h2>
+<p>Now consider this refactored code…</p>
+<pre class="language-jsx " style="counter-reset: linenumber 0"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figure</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>image<span class="token punctuation">.</span>src<span class="token punctuation">}</span></span> <span class="token attr-name">alt</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>image<span class="token punctuation">.</span>alt<span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figure</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>excerpt<span class="token punctuation">}</span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>footer</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>categories<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">category</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span><span class="token punctuation">{</span>category<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>footer</span><span class="token punctuation">></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>Now the code above reads like “article, header, div, footer”.</p>
+<p>In all honesty, it does require more markup than the previous example but, on the other hand, when we scan the code we can clearly see that this is an article with a header image and a title - there is a main body to the article, followed by a list of categories.</p>
+<h2>Accessibility</h2>
+<p>Your browser will scan through your website's DOM and decide if each node it encounters is useful and, if so, will add it to the Accessbility Tree.</p>
+<p>Screen-readers and other assistive technologies then use the Accessibility Tree instead of the visual UI of your website.</p>
+<p>The browser can better determine whether something should go in the Accessibility Tree if it can understand what the node is for - which is where semantics come in.</p>
+<p>Browsers will happily ignore <code>div</code>s and <code>span</code>s because they semantically mean nothing - they're for visual layout and the Accessibility Tree cares not for visual layout!</p>
+<p>Of course you could always pepper your <code>div</code>s with <code>role=&quot;button&quot;</code> or whatever but that goes against <a href="https://www.w3.org/TR/wai-aria-1.2/">WAI-ARIA recommendations</a>.</p>
+<blockquote>
+<p>It is not appropriate to create objects with style and script when the host language provides a semantic element for that type of object. While WAI-ARIA can improve the accessibility of these objects, accessibility is best provided by allowing the user agent to handle the object natively. For example, it's better to use an <code>h1</code> element in HTML than to use the <code>heading</code> role on a <code>div</code> element.</p>
+</blockquote>
+<h2>SEO</h2>
+<p>Semantic HTML is not only for developers and screen readers - it also helps search engines crawl your content.</p>
+<p>Don't take my word for it - <a href="https://developer.yoast.com/blog/why-your-websites-code-structure-matters/">Yoast recommends using semantic markup to improve ranking</a>.</p>
+<p>We can improve on this even further by layering in <a href="http://schema.org/">Schema data</a>.</p>
+<pre class="language-jsx " style="counter-reset: linenumber 0"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span> <span class="token attr-name">itemscope</span> <span class="token attr-name">itemtype</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schema.org/Article<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figure</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>image<span class="token punctuation">.</span>src<span class="token punctuation">}</span></span> <span class="token attr-name">alt</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>image<span class="token punctuation">.</span>alt<span class="token punctuation">}</span></span> <span class="token attr-name">itemprop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>image<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figure</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span> <span class="token attr-name">itemprop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>headline<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">itemprop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>articleBody<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>excerpt<span class="token punctuation">}</span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>footer</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token punctuation">{</span>post<span class="token punctuation">.</span>categories<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">category</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">itemprop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>articleSection<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>category<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>footer</span><span class="token punctuation">></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>Using semantic HTML and Schema data to define your structure means it’s quicker and more accurate for search bots to index your content because they don’t have to make assumptions about what something is.</p>
+<h2>Violent Psychopaths</h2>
+<p>Another benefit is that it becomes clearer for the next developer (even if that is you in the future) who will maintain this code.</p>
+<aside>
+  It is a known fact that any code you wrote six months ago might as well have been written by someone else. 😉
+</aside>
+<p>Using semantic HTML also goes towards your separation of concerns, keeping the “structure” and the “design” separate. Ensuring the markup describes the structure, leaving the css to describe the appearance will make things easier to adjust and maintain going forward.</p>
+<blockquote>
+<p>Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.</p>
+<p><cite><a href="https://groups.google.com/g/comp.lang.c++/c/rYCO5yn4lXw/m/oITtSkZOtoUJ">John F Woods, 1991</a></cite></p>
+</blockquote>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

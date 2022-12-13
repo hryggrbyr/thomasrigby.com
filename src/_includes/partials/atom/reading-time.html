@@ -1,0 +1,9 @@
+{% set wordsLength = content | safe | wordCount %}
+<p class="no-print">
+  <small class="ft-sz-minion">
+    At {{ wordsLength | humanReadableNumber }} words,
+    this article should take about {{ wordsLength | readingTime }} to read.
+  </small>
+</p>
+
+<progress class="no-print" data-js-reading-indicator min="0" max="100" value="0" aria-label="Your progress on this article."></progress>

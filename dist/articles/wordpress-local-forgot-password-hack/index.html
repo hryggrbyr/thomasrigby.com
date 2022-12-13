@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordPress forgotten password localhost hack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>I have lost count of the number of times I've forgotten the password to the local or development CMS.</p>
+<p>My natural instinct is to click the <em>Forgot Password</em> link but, obviously, there's no way to trigger that email from the local system.</p>
+<p>I've spent too long hunting through articles on how to recover the forgotten password. The quickest and easiest solution that I've found is to change the password manually in the database.</p>
+<h2>How do we do that then?</h2>
+<p>WordPress stores passwords in the <code>wp_users</code> table. The prefix may be different if you have elected to change that in the <code>wp-config.php</code> file. It's good practice to do that for security.</p>
+<p>When you look at the table, it'll look a little like this…</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>user_login</th>
+<th>user_pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+<td>$P$BHpcLw/aWsTPmeDprzXwOEl45bJm9A3</td>
+</tr>
+</tbody>
+</table>
+<p>WordPress stores your password as an <a href="https://en.wikipedia.org/wiki/MD5">MD5 hashed string</a>. This prevents anyone with access to the database seeing confidential information in plain text.</p>
+<p>WordPress salts the password using <a href="https://www.openwall.com/phpass/">PHPass</a> (as you can see from the <code>$P$</code> at the start of the example password). This hack will still work though as, even if your password has been salted, <a href="https://wordpress.org/support/article/resetting-your-password/">you can still replace the password with an MD5 hash, and WordPress will let you log in</a>.</p>
+<p>If this <em>wasn't</em> obfuscated like this, we'd be able to copy our password and paste it into the login form…but we can't - and for good reason!</p>
+<p>So, to fix our little problem, we need to replace the existing hashed password with a new hashed password - we can't overwrite the MD5 hash with plain text because that won't work.</p>
+<p>I have <a href="https://marketplace.visualstudio.com/items?itemName=deerawan.vscode-hasher">Hasher</a> installed as a plugin in VS Code. If you don't use VS Code or don't want to use this extension, <a href="https://www.md5hashgenerator.com/">MD5 Hash Generator Online</a> works pretty well.</p>
+<p>I would recommend that you don't create your &quot;forever password&quot; using these hash generators though. Overwrite the existing password with something easy to remember and <strong>very, very temporary</strong> - a favourite of mine is <code>Pa55word!</code> —</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">267057150e34eca5c6af39ec9b30864e
+</code></pre>
+<p>Once the password has been changed, you can log in with your new password <strong>and immediately change it to something more secure</strong>.</p>
+<p>I hope this helps you as much as it has helped me. 😎</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

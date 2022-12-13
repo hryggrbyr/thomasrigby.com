@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crafting the ideal line-length</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>Robert Bringhurst, in <a href="https://www.amazon.com/Elements-Typographic-Style-Robert-Bringhurst/dp/0881792063/ref=sr_1_1?ie=UTF8&amp;qid=1317888735&amp;sr=8-1">The Elements of Typographic Style</a>, puts a comfortable line-length between 45 and 75 characters. Thanks to the <a href="https://caniuse.com/#feat=ch-unit">well-supported css value <code>ch</code></a> we can achieve this much more simply than before.</p>
+<p>Declaring the <code>font-size</code> in <code>rem</code> (relative elastic measurements) means that <a href="https://nicolas-hoizey.com/2016/03/people-don-t-change-the-default-16px-font-size-in-their-browser.html">all of the users who change their font size in the browser</a> will have this change reflected in your website. In addition, using <code>rem</code> for other values (such as padding and margins) will adjust these in accordance making for a more fluid and, ultimately, more comfortable experience.</p>
+<p>Finally, add to this a generous line-height (leading) to give the user enough negative space to comfortably read the content. These values are declared in <code>em</code> (elastic measurements) which means they will take their base value from the font-size of the element they have been applied to (as opposed to the <code>rem</code> which takes its base value from the font-size on the <code>&lt;html&gt;</code> element). <code>em</code> will help with maintenance in the future as values need only be changed in one place instead of two or three - nobody wants a 32px font on an 18px line-height!</p>
+<pre class="language-css " style="counter-reset: linenumber 0"><code class="language-css"><span class="token selector">p</span> <span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 67ch<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> 1.5em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>With headings, the principles remain the same though the values change. Headings should be larger than regular body copy to provide visual feedback that this is a delineator - marking the start of a new section of content.</p>
+<pre class="language-css " style="counter-reset: linenumber 0"><code class="language-css"><span class="token selector">h2</span> <span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 1.25rem<span class="token punctuation">;</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>67ch / 1.25<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> 1.5em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>To ensure all of your typographical elements have a nice comfortable space around them, use <a href="http://twitter.com/@heydonworks">Heydon Pickering</a>'s <a href="https://alistapart.com/article/axiomatic-css-and-lobotomized-owls/">Lobotomised Owl Selector</a>!</p>
+<pre class="language-css " style="counter-reset: linenumber 0"><code class="language-css"><span class="token selector">*+*</span> <span class="token punctuation">{</span>
+  <span class="token property">margin-top</span><span class="token punctuation">:</span> 1.5em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2>Conclusion</h2>
+<p>For larger blocks of text (think article body copy or legal pages), these settings provide a comfortable experience for the great majority of readers.</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

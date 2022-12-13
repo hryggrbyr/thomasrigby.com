@@ -1,0 +1,52 @@
+.hero {
+  position: relative;
+  min-width: 100%;
+  height: auto;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSdub25lJyAvPgogIDxjaXJjbGUgY3g9IjEiIGN5PSIxIiByPSIxIiBmaWxsPSIjZmZmZmYiLz4KPC9zdmc+");
+  background-color: var(--color-pinkswan);
+
+  display: flex;
+  flex-direction: column;
+
+  &.full-screen {
+    min-height: 90vh;
+  }
+
+  &.half-screen {
+    min-height: 50vh;
+  }
+
+  &.micro {
+    min-height: 20rem;
+  }
+
+  &.thumbnail {
+    min-height: 20rem;
+    aspect-ratio: 4/3;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    max-width: 1000rem;
+    max-height: 1000rem;
+    object-fit: cover;
+    z-index: 0;
+  }
+}
+
+.hero-title {
+  background-image: var(--color-rainbow, #fff);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  @supports (-moz-appearance: none) {
+    background-attachment: scroll;
+  }
+}

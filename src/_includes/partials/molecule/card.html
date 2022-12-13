@@ -1,0 +1,32 @@
+
+<article class="card stack shadow radius i-{{loop.index0}}">
+  <figure class="hero thumbnail">
+    {% if post.data.cardHero %}
+      {{ post.data.cardHero.image | safe }}
+    {% endif %}
+  </figure>
+  <header class="stack gutters">
+    <h3 class="ft-fc-accent ft-sz-primer ft-lh-mean ft-wt-stone">
+      {{ post.data.cardHero.title | safe }}
+    </h3>
+  </header>
+  <div class="content stack gutters">
+    {{ post.data.description | safe }}
+  </div>
+  <footer class="stack gutters spacing" style="margin-top: auto;">
+    {% if post.templateContent | length %}
+      <div class="flex centered-vt">
+        <a
+          title="Read: {{ post.data.cardHero.title | safe }}"
+          href="{{ post.url }}"
+          class="button med ghost primary breakout with-icon"
+        >
+          <span>Read more</span>
+          {% set icon = 'arrow' %}
+          {% include "partials/atom/icon.html" %}
+        </a>
+      </div>
+    {% endif %}
+    <small class="ft-sz-minion">{{ post.date | humanReadableDate }}</small>
+  </footer>
+</article>

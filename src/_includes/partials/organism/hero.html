@@ -1,0 +1,13 @@
+<div class="hero {{hero.size}}">
+  {%if hero.image.src %}
+  {% image hero.image.src, hero.image.alt %}
+  {% endif %}
+</div>
+{%if hero.caption %}
+  {%if hero.title %}
+    <h1 class="hero-title ft-fc-accent ft-sz-canon ft-lh-slim">{{hero.title | safe}}</h1>
+  {% endif %}
+  {%if hero.introduction %}
+    <p class="ft-fc-main ft-clr-weiss ft-sz-pica ft-lh-fine">{{hero.introduction | safe }}</p>
+  {% endif %}
+{% endif %}

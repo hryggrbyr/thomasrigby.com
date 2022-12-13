@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick and dirty server 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>I wrote last year about spinning up a <a href="https://thomasrigby.com/articles/quick-and-dirty-server/">quick and dirty server</a> using <a href="https://www.python.org/">Python</a>.</p>
+<p>Since then, I have moved to using Python 3 (woop woop!) and, the first time I ran my funky little <code>srv 1337</code> function I got an error! 😱</p>
+<h2>&quot;No module named SimpleHTTPServer&quot;</h2>
+<p>According to the <a href="https://docs.python.org/2/library/simplehttpserver.html">Python 2.7 documentation</a>…</p>
+<blockquote>
+<p>The SimpleHTTPServer module has been merged into http.server in Python 3.</p>
+</blockquote>
+<p>So, the simple-enough solution is to replace <code>SimpleHTTPServer</code> with <code>http.server</code>.</p>
+<ol>
+<li>Navigate to the folder you want to serve</li>
+<li><code>python -m http.server</code></li>
+<li>Open <code>http://localhost:8000</code></li>
+</ol>
+<h3>What if PORT 8000 is in use?</h3>
+<p>Pass a different port number like this: <code>python -m http.server %%PORT_NUMBER%%</code></p>
+<p>If you want it to be <em>even simpler</em> - stick this somewhere in your bash config!</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash"><span class="token function-name function">srv</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  python <span class="token parameter variable">-m</span> http.server <span class="token variable">$1</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>As before, it doesn't come with any of the fancy stuff that other &quot;local server&quot; plugins might come with like hot reloading or compiling Scss but, if all you want is a small static site launching, why reach for another dependency?</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

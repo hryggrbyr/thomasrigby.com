@@ -1,0 +1,41 @@
+<!-- Read more on https://developers.google.com/search/docs/guides/intro-structured-data -->
+<script type="application/ld+json">
+  {
+    "@id": "{{ page.fileSlug }}",
+    "@context": "http://schema.org",
+    "@type": "{% if section == 'articles' %}Article{% else %}WebPage{% endif %}",
+    "name": "{{ title }}",
+    "description": "{{ description or context.site.description }}",
+  {% if date %}
+    "datePublished": "{{ date }}",
+    "dateModified": "{{ date }}",
+  {% endif %}
+{% if section == 'articles' %}
+  {% if hero.image %}
+    "image": {
+      "@type": "ImageObject",
+      "url": "{{ context.site.canonicalUrl }}{{ hero.image.src }}",
+      "width": "1920",
+      "height": "1080"
+    },
+  {% endif %}
+    "headline": "{{ title }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ context.me.name.display }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ context.company }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ context.site.canonicalUrl }}/images/favicons/apple-touch-icon.png",
+        "width": "180",
+        "height": "180"
+      }
+    },
+    "mainEntityOfPage": "{{ context.site.canonicalUrl + page.url }}",
+{% endif %}
+    "url": "{{ context.site.canonicalUrl + page.url }}"
+  }
+</script>

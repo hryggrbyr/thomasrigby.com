@@ -1,0 +1,9 @@
+<article
+  class="card book | shadow border radius | i-{{loop.index0}}"
+>
+  <figure class="hero dead-center ft-sz-canon">📖</figure>
+  <div class="stack spacing gutters">
+    <h3 class="ft-fc-accent ft-sz-brezier ft-lh-mean">{{ book.title | safe }}</h3>
+    <p><cite>{{ book.author }} ({{ book.originalPublicationYear }})</cite></p>
+  </div>
+</article>

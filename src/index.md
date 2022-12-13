@@ -1,12 +1,12 @@
 ---
 title: 'rigby.cx'
-layout: 'base.html'
+layout: 'layouts/base.html'
 ---
 # Hello world
 
 This is a dummy blog for testing a workflow.
 
-- SpinalCMS
+- tina.io
 - GitHub
 - 11ty
 - Netlify

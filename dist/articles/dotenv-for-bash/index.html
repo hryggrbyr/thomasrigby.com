@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dotenv for bash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>I have, on occasion, had to use the same secret variables in my codebase (JavaScript) and my build scripts (Bash).</p>
+<h2>Shut up and show me the code!</h2>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">egrep</span> <span class="token parameter variable">-v</span> <span class="token string">'^#'</span> .env <span class="token operator">|</span> <span class="token function">xargs</span><span class="token variable">)</span></span>
+</code></pre>
+<h2>Back to the beginning</h2>
+<p>A common pattern to keep some variables hidden from prying eyes involves storing them in an <code>.env</code> file in the root of your project <strong>and not committing it to your repository</strong>.</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash"><span class="token comment"># .env</span>
+<span class="token assign-left variable">SUPER_SECRET_API_KEY</span><span class="token operator">=</span>q1we2rty3uiop4
+
+<span class="token comment">#.gitignore</span>
+.env
+.env*
+<span class="token operator">!</span>.env-example
+</code></pre>
+<p>Using the extremely popular <a href="https://www.npmjs.com/package/dotenv">dotenv</a> npm package allows us to reference the variables in our codebase.</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token constant">SUPER_SECRET_API_KEY</span> <span class="token punctuation">}</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">;</span>
+<span class="token comment">// or</span>
+<span class="token keyword">const</span> key <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">SUPER_SECRET_API_KEY</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This is great! And it works really well!</p>
+<p>One of the things I use <code>.env</code> for is defining my environment locally. When I deploy my code through the CI Pipeline, this environment variable is available without me defining it: <code>ENV=production</code> or <code>ENV=development</code>. Exposing this to my codebase using <em>dotenv</em> allows me to do stuff like;</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript">  <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token constant">ENV</span> <span class="token punctuation">}</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">ENV</span> <span class="token operator">===</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Do production version</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Do non-prod version</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>As it happens, I also use my <code>ENV</code> variable in bash scripts, for example;</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">  <span class="token comment"># start.sh</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable"><span class="token variable">$(</span>ENV<span class="token variable">)</span></span> <span class="token operator">=</span> <span class="token string">'production'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token comment"># Run the build-production script</span>
+    <span class="token comment"># This will strip logs, minify, uglify, and all that good stuff</span>
+  <span class="token keyword">else</span>
+    <span class="token comment"># Run the watch script</span>
+  <span class="token keyword">fi</span>
+</code></pre>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">  <span class="token assign-left variable">ENV</span><span class="token operator">=</span>production <span class="token function">bash</span> start.sh
+</code></pre>
+<p>Notice how I have to define <code>ENV</code> inline here. That's because bash can't read the <code>.env</code> file.</p>
+<p>If you wanted to permanently expose that variable to bash (so you don't have to type it out every single time), you would <code>export</code> it;</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">  <span class="token builtin class-name">export</span> ENV <span class="token operator">=</span> production
+
+  <span class="token builtin class-name">echo</span> <span class="token variable">$ENV</span>   <span class="token comment"># production</span>
+  <span class="token builtin class-name">echo</span> <span class="token variable"><span class="token variable">$(</span>ENV<span class="token variable">)</span></span> <span class="token comment"># production</span>
+</code></pre>
+<p>This is all well and good… until you have 5, 10, 100 variables to export! 🙄</p>
+<p>Enter the handy snippet! 🎉</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">  <span class="token builtin class-name">export</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">egrep</span> <span class="token parameter variable">-v</span> <span class="token string">'^#'</span> .env <span class="token operator">|</span> <span class="token function">xargs</span><span class="token variable">)</span></span>
+</code></pre>
+<p>By looping through every line in the <code>.env</code> file and <code>export</code>ing it as a bash variable (unless, of course, it begins with a <code>#</code> - that's a comment 😁), we can save ourselves, potentially hours of typing!</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

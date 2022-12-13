@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick and dirty carousel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>One thing I find myself looking up time and time again, is;</p>
+<blockquote>
+<p>How do I move the first item of an array to the end? 🤔</p>
+</blockquote>
+<p>So, in the spirit of <em>If I write it down, I'll never forget it</em>, here's a quick and dirty carousel that does just that.</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript">
+<span class="token keyword">const</span> duration <span class="token operator">=</span> <span class="token number">5000</span>
+
+<span class="token keyword">const</span> carousel <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'[data-carousel]'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> slides <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>carousel<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'[data-slide]'</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">initCarousel</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">carousel<span class="token punctuation">,</span> slides</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  slides<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>slides<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  carousel<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">''</span>
+  carousel<span class="token punctuation">.</span><span class="token function">insertAdjacentElement</span><span class="token punctuation">(</span><span class="token string">'afterbegin'</span><span class="token punctuation">,</span> slides<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">initCarousel</span><span class="token punctuation">(</span>carousel<span class="token punctuation">,</span> slides<span class="token punctuation">)</span><span class="token punctuation">,</span> duration<span class="token punctuation">)</span>
+
+</code></pre>
+<h2>Let's break that down…</h2>
+<p>First we set the duration, 5000 milliseconds (5 seconds) should be good enough.</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token keyword">const</span> duration <span class="token operator">=</span> <span class="token number">5000</span>
+</code></pre>
+<p>Next, identify your elements. Your common or garden carousel consists of a container (<code>&lt;div data-carousel /&gt;</code> in this case) and some slides (<code>&lt;article data-slide /&gt;</code> in this case).</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token keyword">const</span> carousel <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'[data-carousel]'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> slides <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>carousel<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">'[data-slide]'</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+</code></pre>
+<p>Now, here's where the magic happens!</p>
+<p>We have a smol function that moves the first item in the array to the end of the array then replaces the entire <code>innerHTML</code> of the container with the first slide in the array.</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">initCarousel</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">carousel<span class="token punctuation">,</span> slides</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  slides<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>slides<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  carousel<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">''</span>
+  carousel<span class="token punctuation">.</span><span class="token function">insertAdjacentElement</span><span class="token punctuation">(</span><span class="token string">'afterbegin'</span><span class="token punctuation">,</span> slides<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Finally, we run the function over and over again, every 5 seconds…</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">initCarousel</span><span class="token punctuation">(</span>carousel<span class="token punctuation">,</span> slides<span class="token punctuation">)</span><span class="token punctuation">,</span> duration<span class="token punctuation">)</span>
+</code></pre>
+<h2>Conclusion</h2>
+<p>And that's it!</p>
+<p>OK, sure, it doesn't have any fancy transitions but hopefully I'll remember the magic formula! 🙏</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript">arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>arr<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="js,result" data-user="hryggrbyr" data-slug-hash="xxgWQoj" data-preview="true" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Quick and dirty carousel">
+  <span>See the Pen <a href="/pen/xxgWQoj">
+  Quick and dirty carousel</a> by Thomas Rigby (<a href="">@hryggrbyr</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async="" src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

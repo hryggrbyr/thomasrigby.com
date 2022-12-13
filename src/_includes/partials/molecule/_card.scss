@@ -1,0 +1,15 @@
+.card {
+  $min-width: var(--width-card);
+  --width-gutters: var(--size-primer);
+  content-visibility: auto;
+  position: relative;
+  min-width: $min-width;
+  display: flex;
+  flex-direction: column;
+  flex-basis: $min-width;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: var(--color-background-card);
+  color: var(--color-foreground-card);
+  overflow: hidden;
+}

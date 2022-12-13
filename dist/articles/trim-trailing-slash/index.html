@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trim trailing slash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>Sometimes a URL has a trailing slash, sometimes it doesn't. If we can't be certain, we need to handle either eventuality.</p>
+<h2>Shut up and give me the code!</h2>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">trimTrailingSlash</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> x<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">!==</span> <span class="token string">'/'</span> <span class="token operator">?</span> x <span class="token operator">:</span> x<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>x<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2>Let's break that down</h2>
+<p>First off we're creating an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">arrow function</a> that will accept an input that we're calling <code>x</code>.</p>
+<p>Inside the function, <code>x</code> is <code>split</code> into individual characters creating an array. The array is reversed using, well, <code>reverse()</code>. This means we can check the <em>first</em> character (<code>[0]</code>) instead of having to work out what the <em>last</em> character is - smart!</p>
+<p>If that character does not equal (<code>!==</code>) a slash simply return the given string. Bouncing out of a function as soon as possible keeps our code quick!</p>
+<p>If the character is a trailing slash, we want to get rid of it; to return part of a string, we can use <code>substring</code>.</p>
+<p>Substring takes two parameters: the starting index and the finishing index. We will start at <code>0</code> which is the very first character and finish with the second to last character (the one before the <code>/</code>).</p>
+<p>To figure what that number is we, again, <code>split</code> the string into an array and use the total number of items (<code>.length</code>) minus 1.</p>
+<h2>Alternative solution!</h2>
+<p>Using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith"><code>String.prototype.endsWith()</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice"><code>String.prototype.slice()</code></a>, we can shorten this function - and make it a little more readable! 🎉</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript">  <span class="token keyword">const</span> <span class="token function-variable function">trimTrailingSlash</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> x<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span> <span class="token operator">?</span> x<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">:</span> x<span class="token punctuation">;</span>
+</code></pre>
+<p><code>.endsWith()</code> works exactly how you would imagine: if the string <em>ends with</em> the given character, the method returns <code>true</code>, otherwise it returns <code>false</code>.</p>
+<h2>Conclusion</h2>
+<p>To trim a trailing slash from a URL requires two operations;</p>
+<ol>
+<li>We must determine if the last character is a slash</li>
+<li>If it is, we must remove the slash</li>
+</ol>
+<p>Each of these steps can be performed in several ways, you can mix-and-match them how you want.</p>
+<p>I've not done any performance testing on these so I couldn't tell you which is fastest when trimming the trailing slash from 40,000 URLs but, unless you <em>are</em> working with 40,000 URLs, just pick the one you feel is the most readable.</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate a random alphanumeric string using JavaScript</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>Today I had to send an &quot;<code>ID</code>&quot; in the body of my POST request. It turns out that the API doesn't care what the value is - it just needs to be alphanumeric (a-z, A-Z, 0-9), exactly 18 characters long, and not already in the system.</p>
+<p>So I decided to generate a random string<sup>*</sup>!</p>
+<h2>Shut up already and give me the code!</h2>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">randomString</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">len <span class="token operator">=</span> <span class="token number">1</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>len<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> Math<span class="token punctuation">.</span><span class="token function">ceil</span><span class="token punctuation">(</span>x <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>Boolean<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">x<span class="token punctuation">,</span>i</span><span class="token punctuation">)</span> <span class="token operator">=></span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">?</span> x<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> x<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>len<span class="token punctuation">)</span>
+</code></pre>
+<h2>Now, let's break that down!</h2>
+<p>There's a lot going on in that one line!</p>
+<p>Firstly, we create an <code>Array</code> with twice as many &quot;characters&quot; as we need.</p>
+<p>Then we <code>fill</code> each item in the array with the number 1000.</p>
+<p>For each of those items (<code>.map()</code>), we randomise the number by multiplying it by a randomly generated number between 0 and 1 (<code>x * Math.random()</code>). This is then converted into a two-character string. We only need the first character so let's grab that with <code>charAt(0)</code>. You could also use <code>[0]</code> as shorthand.</p>
+<p>Now we have an Array of twice as many random alphanumeric characters as we asked for.</p>
+<p>Just to be on the safe side, we remove any empty or falsey values using <code>.filter(Boolean)</code> - this will get rid of any zeroes but meh 🤷‍♀️</p>
+<p>The remaining values are shuffled into a new random order with <code>.sort(() =&gt; Math.random() - 0.5)</code>.</p>
+<p>Our new array is then looped through again and every even-index character is UPPERCASED (if possible - the numbers 0 to 9 cannot be uppercased).</p>
+<p>Now we have an array of much more random characters, but this is <code>randomString</code> - what use is an array?! We need to <code>join('')</code> the array together. The <code>''</code> separator is necessary - without it our string would be full of commas - gross!</p>
+<p>Finally, remember how the string is twice as long as we need? - we return the correct number of characters from the start of the string.</p>
+<h2>Conclusion</h2>
+<p>So there it is! I have no idea how well it performs but you probably shouldn't be generating random strings in production anyway! 😬</p>
+<p>What's this is probably most useful for is playing around with the individual components it's made up of:</p>
+<ul>
+<li>Fill: <code>Array.fill()</code></li>
+<li>Shuffle: <code>Array.sort(() =&gt; Math.random() - 0.5)</code></li>
+<li>Modulos: <code>i % 2 === 0</code></li>
+<li>Remove 'falsey' values: <code>Array.filter(Boolean)</code></li>
+</ul>
+<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="js,result" data-user="hryggrbyr" data-slug-hash="ExZGEKQ" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Generate a random Alphanumeric String using JavaScript">
+  <span>See the Pen <a href="/pen/ExZGEKQ">
+  Generate a random Alphanumeric String using JavaScript</a> by Thomas Rigby (<a href="">@hryggrbyr</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async="" src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<aside>
+  <sup>*</sup> A better solution to this problem is&hellip;
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js">  <span class="token keyword">const</span> id <span class="token operator">=</span> <span class="token function">btoa</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>…but where's the fun in that?! 😈</p>
+</aside>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

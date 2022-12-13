@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Increase WordPress maximum upload limit in Docker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>I've recently moved over to using <a href="https://www.docker.com/">Docker</a> to manage my WordPress builds. It has many advantages and, the more comfortable I get, relatively few disadvantages. Not sponsored or anything, it's just boss!</p>
+<p>One thing I find happens <strong>every single time</strong> is trying to upload an image into the Media Library and getting the &quot;filename exceeds the maximum upload size for this site&quot; error.</p>
+<img srcset="/images/z2WI7aunTr-300.webp 300w,/images/z2WI7aunTr-600.webp 600w,/images/z2WI7aunTr-300.jpeg 300w,/images/z2WI7aunTr-600.jpeg 600w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px" src="/images/z2WI7aunTr-300.jpeg" loading="lazy" decoding="async" alt="filename exceeds the maximum upload size for this site" width="600" height="370" style="aspect-ratio: 300/185">
+<p>Inevitably, I find myself sticking <code>docker wordpress increase upload limit</code> into Bing (yes, <a href="https://www.bing.com/">Bing</a>). There are a few answers knocking around - some of which I can get to work, some of which I can't.</p>
+<p>This is the solution that I find works for me. I'm posting it here to save myself an hour of Googling next time! 😅</p>
+<h2>Step 1: <code>uploads.ini</code></h2>
+<p>Firstly, create an <code>uploads.ini</code> file in your project. I like to keep mine in a specific <code>config</code> folder with my <code>.htaccess</code> file.</p>
+<h2>Step 2: Add your options</h2>
+<p>In the <code>uploads.ini</code> file, add the following:</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">upload_max_filesize <span class="token operator">=</span> 16M
+post_max_size <span class="token operator">=</span> 24M
+</code></pre>
+<p>Feel free to change the values to suit your needs.</p>
+<h2>Step 3: Include your file</h2>
+<p>The file now needs mounting using <a href="https://docs.docker.com/storage/volumes/">volumes</a>.</p>
+<p>If you're using <code>docker-compose</code>, it will look a little something like this:</p>
+<pre class="language-yaml " style="counter-reset: linenumber 0"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.1'</span>
+
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">wordpress</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> wordpress<span class="token punctuation">:</span>5.7.0<span class="token punctuation">-</span>php7.3<span class="token punctuation">-</span>apache
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token datetime number">80:80</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ./config/uploads.ini<span class="token punctuation">:</span>/usr/local/etc/php/conf.d/uploads.ini
+      <span class="token punctuation">-</span> ./www/themes<span class="token punctuation">:</span>/var/www/html/wp<span class="token punctuation">-</span>content/themes<span class="token punctuation">:</span>delegated
+      <span class="token punctuation">-</span> ./www/plugins<span class="token punctuation">:</span>/var/www/html/wp<span class="token punctuation">-</span>content/plugins<span class="token punctuation">:</span>delegated
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">wordpress</span><span class="token punctuation">:</span>
+</code></pre>
+<h2>And that's it!</h2>
+<p>Start or restart Docker and you'll no longer get nasty errors when you try to upload that massive photo.</p>
+<p>Just be aware that upload limits exist for good reason - nobody wants to have to download a tonne of 10Mb 1920×1080 images that are only going to be used as 300px thumbnails…</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

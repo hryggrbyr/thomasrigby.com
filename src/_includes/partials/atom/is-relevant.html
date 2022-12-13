@@ -1,0 +1,23 @@
+{% if date | dateIsOlderThanOneYear %}
+  <style style="display: none;">
+    .notice.message {
+      display: flex;
+      gap: 1em;
+    }
+    .notice.message>span {
+      flex-shrink: 0;
+    }
+    .notice.message>* {
+      vertical-align: middle;
+    }
+  </style>
+  <dialog open class="notice message radius shadow">
+    <span class="ft-sz-doublepica">
+      {% set icon = 'info' %}
+      {% include 'partials/atom/icon.html' %}
+    </span>
+    <p>
+      This article is more than a year old and the information in it may be out of date.
+    </p>
+  </dialog>
+{% endif %}

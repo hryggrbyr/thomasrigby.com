@@ -1,0 +1,31 @@
+{% set author = author or context.me %}
+
+<article class="bio | spacing gutters | radius shadow | no-print" data-colorscheme="brand-primary" style="background-color: var(--color-background); color: var(--color-foreground);">
+  <div class="flex layout-twenty-eighty centered-vt centered-hz">
+    <div>
+      {% set src = author.avatar.large %}
+      {% if src %}
+        {% set alt = author.name.display %}
+        {% set classes = 'avatar' %}
+        {% include 'partials/atom/image.html' %}
+      {% endif %}
+    </div>
+    <div class="stack">
+      {% if author.name.display %}
+        <p class="ft-fc-accent ft-sz-doublepica">
+          {{ author.name.display }}
+        </p>
+      {% endif %}
+      {% if author.bio %}
+        {{ author.bio | safe }}
+      {% endif %}
+      {% if author.profile %}
+        <div class="flex">
+          {% for key, value in author.profile %}
+            <a class="button ghost secondary sml ft-uppercase" style="color: inherit;" title="Visit my profile on {{ value.name }}" href="{{ value.url }}" target="_blank" rel="nofollow noopener noreferrer">{{ value.name }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</article>

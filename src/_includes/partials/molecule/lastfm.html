@@ -1,0 +1,13 @@
+<section data-lastfm class="decorator | wrapper spacing gutters stack | no-print">
+  <h2 class="ft-fc-main ft-sz-pica ft-wt-stone ft-lh-mean">Last played</h2>
+  <div class="flex layout-twenty-eighty centered-vt centered-hz" style="flex-wrap: wrap;">
+    <div style="flex-shrink: 0; min-width: 14rem; filter: invert;">
+      <img data-lastfm-artwork src="{{ listener.latest.artwork }}" alt="" role="presentation">
+    </div>
+    <div class="stack" style="--stack_gap: 1em; flex-grow: 999;  min-width: 14rem;">
+      <p><strong data-lastfm-track class="ft-fc-accent ft-sz-doublepica">{{ listener.latest.track }}</strong></p>
+      <p><b data-lastfm-artist>{{ listener.latest.artist }}</b> || <em data-lastfm-album>{{ listener.latest.album }}</em></p>
+      <a data-lastfm-url class="button med ghost primary" href="{{ listener.latest.url }}">Listen</a>
+    </div>
+  </div>
+</section>

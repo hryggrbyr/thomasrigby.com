@@ -1,0 +1,50 @@
+---json
+{
+  "permalink": "feed.xml",
+  "eleventyExcludeFromCollections": true,
+  "metadata": {
+    "title": "Thomas Rigby",
+    "subtitle": "When I'm not building things for the internet, I take photos of stuff.",
+    "url": "https://thomasrigby.com/",
+    "feedUrl": "https://thomasrigby.com/feed.xml",
+    "author": {
+      "name": "Thomas Rigby",
+      "email": "rss@scrummable.com"
+    }
+  }
+}
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ metadata.title }}</title>
+  <subtitle>{{ metadata.subtitle }}</subtitle>
+  <link href="{{ metadata.feedUrl }}" rel="self"/>
+  <link href="{{ metadata.url }}"/>
+  <updated>{{ collections.article | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <id>{{ metadata.url }}</id>
+  <author>
+    <name>{{ metadata.author.name }}</name>
+    <email>{{ metadata.author.email }}</email>
+  </author>
+  {%- for post in collections.article %}
+    {% set absolutePostUrl %}{{ post.url | url | absoluteUrl(metadata.url) }}{% endset %}
+    <entry>
+      <title>{{ post.data.title | safe }}</title>
+      <link href="{{ absolutePostUrl }}"/>
+      <id>{{ absolutePostUrl }}</id>
+      <published>{{ post.date | dateToRfc3339 }}</published>
+      <updated>{{ post.date | dateToRfc3339 }}</updated>
+      <summary type="html">
+        {{ post.data.description }}
+      </summary>
+      <content type="html">
+        <![CDATA[
+          {%if post.data.hero.image.src %}
+            {% image post.data.hero.image.src, post.data.hero.image.alt, true %}
+          {% endif %}
+          {{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) | safe }}
+        ]]>
+      </content>
+    </entry>
+  {%- endfor %}
+</feed>

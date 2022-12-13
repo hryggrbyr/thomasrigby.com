@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to create a global .gitignore file to define a list of rules for ignoring files in every single Git repository on your computer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>Unfortunately, this has happened to the best of us at some point, amirite?!</p>
+<img srcset="/images/8haCY92oMt-199.webp 199w,/images/8haCY92oMt-199.jpeg 199w" sizes="(max-width: 199px) 199px" src="/images/8haCY92oMt-199.jpeg" loading="lazy" decoding="async" alt="Screenshot of GitKraken showing a new git ignore file and 30,383 deleted files in the node modules folder" width="199" height="63" style="aspect-ratio: 199/63">
+<p>Inspired by this monstrosity, I decided to do some investigation!</p>
+<p>Here is how to create a global <code>.gitignore</code> file to define a list of rules for ignoring files in <em><strong>every single</strong></em> Git repository on your computer…</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">
+  <span class="token function">touch</span> ~/.gitignore_global
+  <span class="token builtin class-name">echo</span> node_modules <span class="token operator">>></span> ~/.gitignore_global
+  <span class="token builtin class-name">echo</span> .DS_Store <span class="token operator">>></span> ~/.gitignore_global
+  <span class="token builtin class-name">echo</span> .vscode <span class="token operator">>></span> ~/.gitignore_global
+  <span class="token function">git</span> config <span class="token parameter variable">--global</span> core.excludesfile ~/.gitignore_global
+
+</code></pre>
+<p>For more handy git tips: <a href="https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer">RTFM 😉</a></p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

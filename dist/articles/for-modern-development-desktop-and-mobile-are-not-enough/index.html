@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For modern development, Desktop and Mobile are not enough</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p><strong>We need to expand our vocabulary.</strong></p>
+<p>Different devices have different capabilities, using mobile to describe both narrow screens and touch screens is confusing and leads to assumptions that come back to bite us.</p>
+<p>If I dock my browser to half of my screen (which I do a lot) it's the same width as a portrait iPad but it doesn't have the same capability - I have hover states, for example.</p>
+<p>Conversely, an iPad Pro is bigger than my laptop but has a touch screen.</p>
+<ul>
+<li><strong>Narrow screens</strong> require adjusting layout</li>
+<li><strong>Touch capability</strong> requires adjusting functionality</li>
+</ul>
+<p>We don't require any extra designs, we need to think about whether this design works.</p>
+<p>And, of course, use our new vocabulary to accurately maintain our products.</p>
+<h2>I'll give you an example…</h2>
+<p>I'm currently working on a project - the frontend is responsive and the layout stacks according to the screen dimensions. On the homepage there is a carousel of cards where additional copy is displayed on hover.</p>
+<video style="width: 100%; height: auto; aspect-ratio: 2444/1604;" width="244" height="160" poster="/images/show-hide-hover-demo.gif" controls="">
+  <source src="/images/show-hide-hover-demo.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+<p>I was asked to make the additional copy <q>always visible on mobile</q>.</p>
+<p>In this case, &quot;mobile&quot; is not correct. If I was to only target &quot;narrow screens&quot;, the functionality is still broken on large touchscreens because the issue with this hidden copy is &quot;hoverability&quot;, not screen size.</p>
+<p>Showing/hiding the copy based on whether the screen is wider or narrower than 768px wouldn't solve the problem!</p>
+<p>It's almost always a matter of education. A client is going to notice a bug on her iPhone and relay it as &quot;on mobile&quot;. And that's absolutely fine; it's not her job to be aware of all of the nuance - it's ours.</p>
+<p>The trick here is not to assume that <em>her</em> definitition of &quot;mobile&quot; is identical to <em>your</em> definition of &quot;mobile&quot; and plough ahead making changes. Consider what is causing the issue, maybe even ask whether it's caused by a narrow screen, touch or lack thereof.</p>
+<p>If you work with a client for any length of time, they'll cotton on and start to use the vocabulary.</p>
+<p>Everyone speaking the same language leads to less confusion, less faux pas, less re-fixing the same bug because we assumed wrong.</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

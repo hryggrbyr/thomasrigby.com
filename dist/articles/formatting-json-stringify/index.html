@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formatting JSON.stringify()</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>I occasionally find myself dumping stringified JSON into a <code>&lt;pre/&gt;</code> tag in my markup. It inevitably looks horrible. In the spirit of <em>If I write it down I won't forget it</em>, here's how to prettify your <code>JSON.stringify()</code> output.</p>
+<p>I always forget that <code>JSON.stringify()</code> takes <em>three</em> arguments:</p>
+<ol>
+<li>The given object</li>
+<li>An optional replacer</li>
+<li>An optional spacing count</li>
+</ol>
+<p>You can find more detail on the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">MDN Web Docs for JSON.stringify</a> but I'm getting into the habit of using this as my default stringify function…</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Adding that <code>, null, 2</code>, turns this…</p>
+<img srcset="/images/Vj6M4ewwka-300.webp 300w,/images/Vj6M4ewwka-600.webp 600w,/images/Vj6M4ewwka-300.jpeg 300w,/images/Vj6M4ewwka-600.jpeg 600w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px" src="/images/Vj6M4ewwka-300.jpeg" loading="lazy" decoding="async" alt="Displayed stringified JSON without formatting" width="600" height="336" style="aspect-ratio: 300/168">
+<p>…into this…</p>
+<img srcset="/images/HjxnodWcDF-300.webp 300w,/images/HjxnodWcDF-600.webp 600w,/images/HjxnodWcDF-300.jpeg 300w,/images/HjxnodWcDF-600.jpeg 600w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px" src="/images/HjxnodWcDF-300.jpeg" loading="lazy" decoding="async" alt="Displayed stringified JSON with formatting" width="600" height="707" style="aspect-ratio: 300/353">
+<h2>Bonus</h2>
+<p>Remember that <code>replacer</code>? You can narrow down what is displayed by dropping an array of keys in there instead of <code>null</code>.</p>
+<pre class="language-javascript " style="counter-reset: linenumber 0"><code class="language-javascript"><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'phone'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<img srcset="/images/O9s7m50bX6-300.webp 300w,/images/O9s7m50bX6-300.jpeg 300w" sizes="(max-width: 300px) 300px" src="/images/O9s7m50bX6-300.jpeg" loading="lazy" decoding="async" alt="Displayed stringified JSON partial with formatting" width="300" height="126" style="aspect-ratio: 300/126">
+<h2>Credits</h2>
+<p>The data displayed in the above screenshots is provided by <a href="https://randomuser.me/">randomuser.me</a> which is an API for generating user data. They describe themselves as <q>Like Lorem Ipsum, but for people</q> and they're a really useful resource. #notsponsored.</p>
+<p>I used the ever useful <a href="https://quokkajs.com/">QuokkaJS</a> to run my <code>JSON.stringify</code> code. For those that don't know, <q>Quokka.js is a developer productivity tool for rapid JavaScript / TypeScript prototyping</q> and is available as a <a href="https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode">VS Code plugin</a>. Again, not sponsored - just a fan! 😃</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

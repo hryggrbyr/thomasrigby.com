@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numberize a value</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>If you get a CSS value but you want to do maths with it, what do you do?</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">const</span> width <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPropertyValue</span><span class="token punctuation">(</span><span class="token string">'width'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 960px</span>
+document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token punctuation">(</span>width <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// NaN</span>
+</code></pre>
+<p>Oh noes! 😖</p>
+<p>I guess we could use the CSS <code>calc()</code> syntax…</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js">document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">calc(</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>width<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> / 2)</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span> <span class="token comment">// &lt;body style="width: calc(960px / 2);"></span>
+</code></pre>
+<p>This is all well and good for simple calculations like that but what happens when we start getting spicy?</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">const</span> padding <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPropertyValue</span><span class="token punctuation">(</span><span class="token string">'padding'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 8px</span>
+<span class="token keyword">const</span> margin <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">getComputedStyle</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPropertyValue</span><span class="token punctuation">(</span><span class="token string">'margin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 32px</span>
+document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">calc(calc(</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>width<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> / 2) + calc(</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>padding<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> + calc(</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>margin<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> * 0.5))</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>  <span class="token comment">// &lt;body style="width: calc(calc(960px / 2) + calc(8px + calc(32px * 0.5)));"></span>
+</code></pre>
+<p>Ew! Gross! 🤮</p>
+<p>What you <em>actually</em> want is to be able to treat that string like a real number, right?</p>
+<h2>Make that string an integer</h2>
+<p>A fun quirk/feature of JavaScript is that <code>parseInt()</code> and <code>parseFloat()</code> can be used on any string that <em>starts</em> with a number and it will just magically work!</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js">document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">parseInt</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token function">parseInt</span><span class="token punctuation">(</span>margin<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>padding<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'px'</span><span class="token punctuation">;</span> <span class="token comment">// &lt;body style="width: 504px;"></span>
+</code></pre>
+<p>The magic here is JavaScript's <em>Type Inference</em> - it's doing a lot of the heavy lifting in assuming that - because you're &quot;parsing an integer&quot; - the string passed <strong>is an integer</strong>.</p>
+<p>Again, this works but I, for one, don't like things to run off assumptions. And, no, rewriting the application in TypeScript isn't going to happen, Reply Guy!</p>
+<h2>Make that string <em>definitely</em> an integer</h2>
+<p>If you just want the code, here you are…</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">numberizeValue</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">input</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">parseFloat</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> <span class="token operator">!</span>x<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[0-9.]</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3>Now, let's break that down!</h3>
+<p>Firstly, we're going to use <code>parseFloat()</code> because it will allow us to &quot;numberize&quot; numbers with decimal places. We're going to assume our numbers are decimal and return the result using Base 10.</p>
+<p>Next, we explode the provided string into an array with <code>input.split('')</code>. The use of <code>''</code> gives us an array of individual characters.</p>
+<p>We can now filter the array to remove any characters that are <em>not</em> numbers using <code>.filter(x =&gt; !x.match(/[0-9.]/g)</code>. The RegEx in the <code>match</code> function is looking for decimal numbers between <em>0</em> and <em>9</em>, and the full-stop/period character.</p>
+<p>Now the array has been stripped of letters and (most) punctuation, we can <code>join</code> the array back into a string to be parsed.</p>
+<img srcset="/images/4a7nD-jq-U-300.webp 300w,/images/4a7nD-jq-U-600.webp 600w,/images/4a7nD-jq-U-300.jpeg 300w,/images/4a7nD-jq-U-600.jpeg 600w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px" src="/images/4a7nD-jq-U-300.jpeg" loading="lazy" decoding="async" alt="numberizePixels examples" width="600" height="266" style="aspect-ratio: 300/133">
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I am a lazy developer or How to write 438 lines of nginx redirects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>When I say &quot;I am a lazy developer&quot;, I don't mean to imply that I cut corners and churn out shoddy code. I just hate doing repetitive tasks that bore the bejesus out of me!</p>
+<p>Obviously, I'm not alone in this - it's the reason <a href="https://www.smashingmagazine.com/2016/06/harness-machines-productive-task-runners/">task runners</a> exist.</p>
+<p>Recently, at work, I replatformed an existing e-commerce site which resulted in, amongst other things, a giant list of redirects from existing urls to the new url structure.</p>
+<p><a href="https://moz.com/learn/seo/redirection">Permanent redirects (301s for the people who like numbers) are essential for persistence of good SEO</a>. The downside is adding the old url and the new url to the line <code>rewrite ^/&lt;oldlocation&gt;$ &lt;newlocation&gt; permanent;</code> in my nginx config file. What's a lazy guy to do when you have to do this 438 times…?</p>
+<p>Well, this immediately looks like a case for loops and variables!</p>
+<h2>How can <em>you</em> do this wizardry?!</h2>
+<p>You'll need four things;</p>
+<ol>
+<li><a href="https://nodejs.org/en/">NodeJS</a> installed on your machine,</li>
+<li>a command-line application like Hyper, iTerm2, or Terminal,</li>
+<li>a CSV file of the required redirects, and</li>
+<li>this handy class in an <code>index.js</code> file.</li>
+</ol>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">// excel.csv
+
+old,new
+https://thomasrigby.com/newyork/, https://thomasrigby.com/locations/newyork/
+https://thomasrigby.com/paris/, https://thomasrigby.com/locations/paris/
+https://thomasrigby.com/peckham/, https://thomasrigby.com/locations/peckham/
+</code></pre>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token comment">// index.js</span>
+
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">GenerateNginxRedirectsFromCSV</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">input<span class="token punctuation">,</span> output</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>input <span class="token operator">=</span> input <span class="token operator">||</span> <span class="token string">'./input.csv'</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>output <span class="token operator">=</span> output <span class="token operator">||</span> <span class="token string">'./output.txt'</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>csv <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">async</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>csv <span class="token operator">=</span> <span class="token keyword">await</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">encoding</span><span class="token operator">:</span> <span class="token string">'utf8'</span><span class="token punctuation">,</span> <span class="token literal-property property">flag</span><span class="token operator">:</span> <span class="token string">'r'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">async</span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>results <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>csv<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\n</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'\r'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>Boolean<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">rewrite ^/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>x<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">?$ </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>x<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> permanent;\n</span><span class="token template-punctuation string">`</span></span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>results<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">await</span> fs<span class="token punctuation">.</span><span class="token function">appendFileSync</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>output<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">async</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> task <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GenerateNginxRedirectsFromCSV</span><span class="token punctuation">(</span><span class="token string">'./excel.csv'</span><span class="token punctuation">,</span> <span class="token string">'./redirects.txt'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+task<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+</code></pre>
+<p>Put both files in the same folder, open the folder in your command line Terminal application and run <code>node ./</code>. This will generate a file (called <code>output.txt</code> unless you've changed it) listing your redirects in an easy-to-copypasta format. Paste the contents into your <code>nginx.conf</code> file.</p>
+<h2>Cool! How does it work?</h2>
+<p>There's a lot going on here so let's go through it.</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><a href="https://nodejs.org/api/fs.html">fs</a> is the NodeJS File System module. I won't go into detail here but, basically, it allows you to <em>Read from</em> and <em>Write to</em> files on your local system, servers, or whereever Node is installed.</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">input<span class="token punctuation">,</span> output</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>input <span class="token operator">=</span> input <span class="token operator">||</span> <span class="token string">'./input.csv'</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>output <span class="token operator">=</span> output <span class="token operator">||</span> <span class="token string">'./output.txt'</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>csv <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In the constructor, we set our scoped variables (including fallbacks) and the empty variables that will be populated by our fetched and formatted data.</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">async</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>As we can see from the <code>init()</code> function, our three basic steps are;</p>
+<ol>
+<li>Get the contents of the CSV file</li>
+<li>Convert it into a format nginx can understand</li>
+<li>Write the results to a file</li>
+</ol>
+<h3>Step 1 - Get the contents of the CSV</h3>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">this</span><span class="token punctuation">.</span>csv <span class="token operator">=</span> <span class="token keyword">await</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">encoding</span><span class="token operator">:</span> <span class="token string">'utf8'</span><span class="token punctuation">,</span> <span class="token literal-property property">flag</span><span class="token operator">:</span> <span class="token string">'r'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Read the input filepath and save the contents into the <code>this.csv</code> variable for later use.</p>
+<h3>Step 2 - Convert CSV to nginx</h3>
+<p>Since the output of the csv file is consistent, and so is the format of a JSON object, we can map one to the other.</p>
+<pre class="language-js " style="counter-reset: linenumber 0"><code class="language-js"><span class="token keyword">async</span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>results <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>csv<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\n</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'\r'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>Boolean<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">rewrite ^/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>x<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">?$ </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>x<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> permanent;\n</span><span class="token template-punctuation string">`</span></span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Firstly, replace any <code>\n</code> line-endings, then explode the string into an array at each line-break (<code>\r</code>).</p>
+<p>Then, we generate an array of results.</p>
+<ul>
+<li>Filter out any empty lines with <code>.filter(Boolean)</code></li>
+<li>Remove the line with the headers using <code>.slice(1)</code></li>
+<li>For each remaining line, generate a string to copy into <code>nginx.conf</code>.</li>
+</ul>
+<p>It should look a little like this;</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">rewrite ^/https://thomasrigby.com/newyork/?$  https://thomasrigby.com/locations/newyork/ permanent<span class="token punctuation">;</span>
+</code></pre>
+<h3>Step 3 - Write the output file</h3>
+<p>Now that <code>this.results</code> is an array of strings, we can</p>
+<ul>
+<li>loop through each instance</li>
+<li>insert the result to an ouput file using <em>fs</em>.</li>
+</ul>
+<p>All that's left to do is open the resulting file and copypasta the content into your <code>nginx.conf</code> file.</p>
+<p>Don't forget to gracefully restart the nginx server. Forgetting this has caused me untold headaches!</p>
+<pre class="language-bash " style="counter-reset: linenumber 0"><code class="language-bash">nginx <span class="token parameter variable">-t</span> <span class="token operator">&amp;&amp;</span> nginx <span class="token function">service</span> restart
+</code></pre>
+<h2>Conclusion</h2>
+<p>Now, I'm sure there are <s>different</s> better ways to do this but, off the top of my head, this seemed quick and simple enough to whip together.</p>
+<p>I've no idea how long it would have taken me to manually do this but I'm certain it would have taken longer than to write this bit of code.</p>
+<p>Not only did I save myself time on that particular day, whenever I (or someone else on my team) need to do this again I have a useful tool to reuse again and again 😎</p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

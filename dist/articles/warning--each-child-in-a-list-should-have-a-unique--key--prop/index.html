@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Each child in a list should have a unique "key" prop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>To prevent ugly errors in your console when you loop through an array, React likes you to use a <em>unique key</em> for each child element.</p>
+<p>We usually use the loop index. This is not advised for several reasons<sup>1, 2</sup>.</p>
+<p>Instead try this…</p>
+<p><code>Math.random().toString(36).substr(2, 9)</code></p>
+<p>This will give you a (fairly) random 9-character alphanumerical string.</p>
+<img srcset="/images/YOWpZSJitS-300.webp 300w,/images/YOWpZSJitS-600.webp 600w,/images/YOWpZSJitS-300.jpeg 300w,/images/YOWpZSJitS-600.jpeg 600w" sizes="(max-width: 300px) 300px,(max-width: 600px) 600px" src="/images/YOWpZSJitS-300.jpeg" loading="lazy" decoding="async" alt="Example code" width="600" height="180" style="aspect-ratio: 300/90">
+<pre class="language-jsx " style="counter-reset: linenumber 0"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token punctuation">{</span> items<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span> <span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>x<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span> <span class="token punctuation">}</span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>This is useful for &quot;throwaway&quot; keys. If you're going to be referencing the keys in any way, you need to use a unique property (like an <code>ID</code> or <code>slug</code>).</p>
+<hr>
+<p><sup>1</sup> <a href="https://reactjs.org/docs/lists-and-keys.html">React Docs say so</a></p>
+<p><sup>2</sup> <a href="https://stackoverflow.com/questions/46735483/error-do-not-use-array-index-in-keys">Stack Overflow Bros say so</a></p>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>

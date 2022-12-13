@@ -1,0 +1,24 @@
+---
+title: Articles
+layout: 'layouts/base.html'
+description: Articles I have written
+hero:
+  size: full-bleed micro
+  caption: true
+  title: Articles
+  image:
+    src: /images/IMG_20220928_062920_hdr.jpg
+    alt: View through a fence on a foggy Autumn morning
+---
+
+{% include 'partials/organism/hero.html' %}
+
+<section class="spacing">
+  <h2 class="sr-only">All articles</h2>
+
+  <div class="spacing flex layout-even">
+    {% for post in collections.article | reverse %}
+      {% include 'partials/molecule/card.html' %}
+    {% endfor %}
+  </div>
+</section>

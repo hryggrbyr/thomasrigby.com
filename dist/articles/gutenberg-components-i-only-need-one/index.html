@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gutenberg Components - "I only need one"</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrapper">
+      <div><a href="/">rigby.cx</a></div>
+      <nav>
+        <a href="/articles">Articles</a>
+      </nav>
+    </div>
+  </header>
+  <main tabindex="-1" id="main-content" class="wrapper" style="padding-top: 5vh; padding-bottom: 5vh;">
+    <a id="content"></a>
+    
+  <article>
+    <pre>article.html</pre>
+    <p>Gutenberg comes with an awful lot of default components (see list below) most of which will never be used in our websites.</p>
+<p>It's perfectly possible to just leave them there but this has the potential for disaster.</p>
+<p>Leaving them visible to the content manager raises two possibilities;</p>
+<ol>
+<li>It will be difficult for them to find the actual component they want to use</li>
+<li>They will try to use a component that we haven't styled which will break the layout on the frontend</li>
+</ol>
+<p>So, what do we do...?</p>
+<h2>Only show the components you will actually use</h2>
+<p>Drop this into your <code>functions.php</code> file or, better yet, write a plugin to handle it 😎</p>
+<pre class="language-php " style="counter-reset: linenumber 0"><code class="language-php"><span class="token function">add_filter</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'allowed_block_types'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'txb_allowed_block_types'</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function-definition function">txb_allowed_block_types</span><span class="token punctuation">(</span> <span class="token variable">$allowed_blocks</span><span class="token punctuation">,</span> <span class="token variable">$post</span> <span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$allowed_blocks</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span>
+      <span class="token string single-quoted-string">'core/image'</span><span class="token punctuation">,</span> <span class="token comment">// Add the blocks you want here...</span>
+      <span class="token string single-quoted-string">'core/paragraph'</span><span class="token punctuation">,</span>
+      <span class="token string single-quoted-string">'core/heading'</span><span class="token punctuation">,</span>
+      <span class="token string single-quoted-string">'acf/videum'</span> <span class="token comment">// Add your custom blocks here</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token variable">$allowed_blocks</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<h2>Gutenberg Default Components</h2>
+<ul>
+<li>Paragraph</li>
+<li>Heading</li>
+<li>Image</li>
+<li>List</li>
+<li>Quote</li>
+<li>Gallery</li>
+<li>Audio</li>
+<li>Cover</li>
+<li>File</li>
+<li>Video</li>
+<li>Code</li>
+<li>Preformatted</li>
+<li>Classic Block</li>
+<li>Custom HTML</li>
+<li>Pullquote</li>
+<li>Table</li>
+<li>Verse</li>
+<li>Columns</li>
+<li>Separator</li>
+<li>Button</li>
+<li>Media &amp; Text</li>
+<li>More</li>
+<li>Page Break</li>
+<li>Spacer</li>
+<li>Shortcode</li>
+<li>Archives</li>
+<li>Categories</li>
+<li>Latest Comments</li>
+<li>Latest Posts</li>
+<li>Embed</li>
+<li>Twitter</li>
+<li>YouTube</li>
+<li>Facebook</li>
+<li>Instagram</li>
+<li>WordPress</li>
+<li>SoundCloud</li>
+<li>Spotify</li>
+<li>Flickr</li>
+<li>Vimeo</li>
+<li>Animoto</li>
+<li>Cloudup</li>
+<li>CollegeHumor</li>
+<li>Crowdsignal</li>
+<li>Dailymotion</li>
+<li>Funny or Die</li>
+<li>Hulu</li>
+<li>Imgur</li>
+<li>Issuu</li>
+<li>Kickstarter</li>
+<li>Meetup.com</li>
+<li>Mixcloud</li>
+<li>Photobucket</li>
+<li>Reddit</li>
+<li>ReverbNation</li>
+<li>Screencast</li>
+<li>Scribd</li>
+<li>Slideshare</li>
+<li>SmugMug</li>
+<li>Speaker Deck</li>
+<li>TED</li>
+<li>Tumblr</li>
+<li>VideoPress</li>
+<li>WordPress.tv</li>
+</ul>
+
+  </article>
+
+  </main>
+  <footer class="site-footer">
+    <div class="wrapper">
+      <small class="colophon">&copy; 2022 <a href="https://thomasrigby.com">Thomas Rigby</a></small>
+      <a href="mailto:webmaster@rigby.cx">Contact webmaster</a>
+    </div>
+  </footer>
+</body>
+</html>
